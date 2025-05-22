@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="login.css" >
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post">
+        <label for="username">Username:</label>
+        <div style="position: relative; width: 100%;">
+            <input type="text" id="username" name="username" required
+                style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 width="22" height="22"
+                 fill="#888"
+                 style="position: absolute; right: 10px; top: 40%; transform: translateY(-50%);">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+            </svg>
+        </div>
+        <br>
+        <label for="password">Password:</label>
+        <div style="position: relative; width: 100%;">
+            <input type="password" id="password" name="password" required
+            style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;">
+            <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 24"
+             width="22" height="22"
+             fill="#888"
+             style="position: absolute; right: 10px; top: 44%; transform: translateY(-50%);">
+                <rect x="6" y="10" width="12" height="8" rx="2"/>
+                <path d="M8 10V8a4 4 0 1 1 8 0v2"/>
+                <ellipse cx="12" cy="8.2" rx="2.6" ry="1.7" fill="#fff"/>
+            </svg>
+        </div>
+        <br>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <label style="display: flex; align-items: center; margin: 0;">
+                <input type="checkbox" id="remember-me" name="remember-me" style="margin-right: 6px;">
+                Remember me
+            </label>
+            <label for="forgot-password" style="font-size: 0.95em; margin: 0;">
+                Forgot password? 
+                <a href="../forgot_password/forgot_password.html"  
+                    style="color: inherit; 
+                    text-decoration: none; 
+                    font-weight: bold; 
+                    font-size: inherit;">Reset it here
+                </a>
+            </label>
+        </div>
+        <br>
+        <button type="submit" value="Login">Login</button>
+        <br>
+        <label for="register" style="font-size: 0.95em;">Don't have an account? 
+            <a href="../register/register.html" 
+                style="color: inherit; 
+                text-decoration: none; 
+                font-weight: bold; 
+                font-size: inherit;">Register here
+                </a>
+            </label>
+
+    </form>
+</body>
+</html>
