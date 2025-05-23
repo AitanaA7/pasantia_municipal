@@ -1,7 +1,7 @@
 body {
     font-family: Verdana, Tahoma, sans-serif;
     background-color: #c7e0f4;
-    background-image: url('../background_image.jpg');
+    background-image: url('./background_image.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
