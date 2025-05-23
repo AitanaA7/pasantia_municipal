@@ -11,8 +11,8 @@
     <form method="post">
         <label for="username">Username:</label>
         <div style="position: relative; width: 100%;">
-            <input type="text" id="username" name="username" required
-                style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;">
+            <input type="text" id="username" name="username" required >
+            <!-- style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;"> -->
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 24 24"
                  width="22" height="22"
@@ -25,8 +25,8 @@
         <br>
         <label for="password">Password:</label>
         <div style="position: relative; width: 100%;">
-            <input type="password" id="password" name="password" required
-            style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;">
+            <input  type="password" id="password" name="password" required >
+            <!-- style="padding-right: 40px; width: 100%; box-sizing: border-box; height: 40px; vertical-align: middle;"> -->
             <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 24 24"
              width="22" height="22"
@@ -45,24 +45,18 @@
             </label>
             <label for="forgot-password" style="font-size: 0.95em; margin: 0;">
                 Forgot password? 
-                <a href="../forgot_password/forgot_password.html"  
-                    style="color: inherit; 
-                    text-decoration: none; 
-                    font-weight: bold; 
-                    font-size: inherit;">Reset it here
-                </a>
+                <a href="../forgot_password/forgot_password.html" class="link">Reset it here</a>
+                    <!--style="color: inherit; text-decoration: none; font-weight: bold; font-size: inherit;"-->
+
             </label>
         </div>
         <br>
         <button type="submit" value="Login">Login</button>
         <br>
         <label for="register" style="font-size: 0.95em;">Don't have an account? 
-            <a href="../register/register.html" 
-                style="color: inherit; 
-                text-decoration: none; 
-                font-weight: bold; 
-                font-size: inherit;">Register here
-                </a>
+            <a href="../register/register.html" class="link">Register here</a>
+                <!--style="color: inherit; text-decoration: none; font-weight: bold; font-size: inherit;"-->
+
             </label>
 
     </form>

@@ -32,15 +32,13 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 98%;
-    padding: 10px 3%;
+    width: 100%;
+    padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #71afe5;
     border-radius: 8px;
     box-sizing: border-box;
     background-clip: padding-box;
-    font-size: 1rem;
-    transition: border-color 0.2s;
 }
 
 input[type="text"]:focus,
@@ -64,7 +62,6 @@ button {
     font-size: 16px;
     font-weight: bold;
     width: 100%;
-    transition: background 0.2s;
 }
 
 input[type="submit"]:hover,
