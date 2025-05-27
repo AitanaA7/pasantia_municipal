@@ -10,6 +10,23 @@ body {
     padding: 0;
 }
 
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-box {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: #c7e0f4;
+    display: flex;
+    align-items: center;
+    text-align: center;
+} */
+
 h1 {
     text-align: center;
     margin-top: 50px;
