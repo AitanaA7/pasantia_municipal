@@ -102,7 +102,7 @@ form {
     font-weight: 500;
 }
 
-.input-box input ::placeholder {
+.input-box input::placeholder {
     color: #888;
     font-weight: 400;
 }
@@ -302,7 +302,7 @@ form {
     }
 }
 
-@media screen and (max-width: 400){
+@media screen and (max-width: 400px){
     .form-box {
         padding: 20px;
     }
@@ -336,4 +336,112 @@ form {
     text-align: left;
     margin: 10px 0;
     color: #333;
+}
+
+/* registro completo: FIX SCROLL*/
+#full-register-form {
+    padding: 40px;
+    background: #f7f9fb;
+    border-radius: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 90vh; 
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #004578 #e2e2e2;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+}
+
+#full-register-form::-webkit-scrollbar {
+    width: 8px;
+    background: #e2e2e2;
+    border-radius: 8px;
+}
+#full-register-form::-webkit-scrollbar-thumb {
+    background: #004578;
+    border-radius: 8px;
+}
+
+.column {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.column .input-box {
+    flex: 1 1 150px;
+    min-width: 150px;
+    margin-bottom: 0;
+}
+
+#full-register-form input,
+#full-register-form select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 7px;
+    border: 1px solid #c9d6ff;
+    background: #f0f4fa;
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 2px;
+    transition: border-color 0.2s;
+}
+
+#full-register-form input:focus,
+#full-register-form select:focus {
+    border-color: #004578;
+    outline: none;
+    background: #fff;
+}
+
+#full-register-form .form-group {
+    margin-bottom: 10px;
+}
+
+#full-register-form .form-error {
+    color: #d32f2f;
+    font-size: 13px;
+    margin-top: 2px;
+    min-height: 18px;
+}
+
+#full-register-form .btn {
+    margin-top: 10px;
+    font-size: 17px;
+    padding: 12px 0;
+    border-radius: 7px;
+    background: #004578;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#full-register-form .btn:hover {
+    background: #0056b3;
+}
+
+#full-register-form .form-footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #555;
+}
+
+#full-register-form .form-footer a {
+    color: #004578;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+#full-register-form .form-footer a:hover {
+    color: #0056b3;
 }

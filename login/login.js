@@ -13,8 +13,8 @@ loginBtn.addEventListener('click', () => {
 document.getElementById('login-form').addEventListener('submit', async(event) =>{
     event.preventDefault(); 
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('l-email').value;
+    const password = document.getElementById('l-password').value;
 
     try {
         const response = await fetch('http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/auth/munidigital/login', {
@@ -41,12 +41,54 @@ document.getElementById('login-form').addEventListener('submit', async(event) =>
                 <p>- Id: ${data.usuario.id}</p>
             </div>
         `;
-
+       
     }
 
     catch (error) {
         console.error('Error during login:', error);
         alert('Login failed. Please check your credentials and try again.');
+        document.getElementById('l-password').value = '';
+        if (!rememberMeCheckbox.checked) {
+            emailInput.value = '';
+        }
     }
 
+});
+
+const rememberMeCheckbox = document.getElementById('remember-me');
+const emailInput = document.getElementById('l-email');
+
+window.addEventListener('DOMContentLoaded', () => {
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+        emailInput.value = savedEmail;
+        rememberMeCheckbox.checked = true;
+    }
+});
+
+rememberMeCheckbox.addEventListener('change', () => {
+    if (rememberMeCheckbox.checked) {
+        localStorage.setItem('rememberedEmail', emailInput.value);
+    } else {
+        localStorage.removeItem('rememberedEmail');
+    }
+});
+
+emailInput.addEventListener('input', () => {
+    if (rememberMeCheckbox.checked) {
+        localStorage.setItem('rememberedEmail', emailInput.value);
+    }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('register-form');
+    const extendedRegisterDiv = document.getElementById('extended-register-form');
+    if (registerForm && extendedRegisterDiv) {
+        registerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            extendedRegisterDiv.style.display = 'block';
+            registerForm.style.display = 'none'; // Esconde el formulario anterior
+            container.classList.add('active');
+        });
+    }
 });
