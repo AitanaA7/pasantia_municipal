@@ -80,6 +80,69 @@ emailInput.addEventListener('input', () => {
     }
 });
 
+const forgotPasswordLink = document.getElementById('forgot-password');
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        // Create popup
+        const popup = document.createElement('div');
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.background = '#fff';
+        popup.style.padding = '24px 32px';
+        popup.style.borderRadius = '10px';
+        popup.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+        popup.style.zIndex = 10000;
+        popup.style.textAlign = 'center';
+
+        popup.innerHTML = `
+            <h2 style="margin-bottom:18px;">Reset Password</h2>
+            <p style="margin-bottom:16px;">Enter your email to reset your password:</p>
+            <input type="email" id="reset-email" placeholder="Email" style="padding:6px;width:90%;margin-bottom:16px;border-radius:4px;border:1px solid #ccc;" required />
+            <div>
+            <button id="reset-send-btn" style="background:#004578;color:#fff;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;margin-right:8px;">Send</button>
+            <button id="reset-cancel-btn" style="background:#ccc;color:#333;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;">Cancel</button>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        const sendBtn = popup.querySelector('#reset-send-btn');
+        const cancelBtn = popup.querySelector('#reset-cancel-btn');
+        const emailInput = popup.querySelector('#reset-email');
+
+        sendBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email) {
+                emailInput.style.borderColor = 'red';
+                return;
+            }
+            emailInput.style.borderColor = '#ccc';
+
+            // send reset request to API
+            // await fetch('/api/reset-password', { method: 'POST', body: JSON.stringify({ email }) });
+
+            popup.innerHTML = `
+                <h2 style="margin-bottom:16px;">Password Reset</h2>
+                <p style="margin-bottom:24px;">If the email exists, you will receive instructions to reset your password.</p>
+                <button id="reset-ok-btn" style="background:#004578;color:#fff;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;">OK</button>
+            `;
+            popup.querySelector('#reset-ok-btn').addEventListener('click', () => {
+                document.body.removeChild(popup);
+            });
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            document.body.removeChild(popup);
+        });
+    });
+}
+
+// Extended Registration Form
+
 window.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');
     const extendedRegisterDiv = document.getElementById('extended-register-form');
@@ -87,8 +150,66 @@ window.addEventListener('DOMContentLoaded', () => {
         registerForm.addEventListener('submit', (event) => {
             event.preventDefault();
             extendedRegisterDiv.style.display = 'block';
-            registerForm.style.display = 'none'; // Esconde el formulario anterior
+            registerForm.style.display = 'none'; 
             container.classList.add('active');
+            container.classList.add('extended-open');
         });
     }
 });
+
+const extendedRegisterForm = document.getElementById('extended-register-form');
+if (extendedRegisterForm) {
+    const registerNowBtn = document.getElementById('extended-register-btn');
+    if (registerNowBtn) {
+        registerNowBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const inputs = extendedRegisterForm.querySelectorAll('input[required], select[required], textarea[required]');
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                    input.classList.add('input-error'); 
+                } else {
+                    input.classList.remove('input-error');
+                }
+            });
+
+            if (!allFilled) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const popup = document.createElement('div');
+            popup.style.position = 'fixed';
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.background = '#fff';
+            popup.style.padding = '24px 32px';
+            popup.style.borderRadius = '10px';
+            popup.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+            popup.style.zIndex = 10000;
+            popup.style.textAlign = 'center';
+
+            popup.innerHTML = `
+                <h2 style="margin-bottom:10px;">Sucessful Registration!</h2>
+                <button style="
+                    margin-top:12px;
+                    background:#004578;
+                    color:#fff;
+                    border:none;
+                    border-radius:6px;
+                    padding:8px 20px;
+                    cursor:pointer;
+                ">OK</button>
+            `;
+
+            document.body.appendChild(popup);
+
+            popup.querySelector('button').addEventListener('click', () => {
+                document.body.removeChild(popup);
+            });
+        });
+    }
+}

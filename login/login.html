@@ -19,7 +19,7 @@
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input  type="password" id="l-password" name="password" placeholder="Password" required minlength="8" maxlength="32" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,32}$" title="Password must be 8-32 characters, include at least one letter and one number." >
+                    <input  type="password" id="l-password" name="password" placeholder="Password" required pattern="^(?=.*\d).{5,}$" title="La contraseña debe tener al menos 5 caracteres y al menos 1 número." >
                     <i class='bx bxs-lock'></i> 
                 </div>
                 <div class="remember-me">
@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <div class="forgot-password">
-                    <a href="../forgot_password/forgot_password.html" class="link">Forgot password?</a>
+                    <a href="#" id="forgot-password"class="link">Forgot password?</a>
                 </div>
                 <button type="submit" class="btn" value="Login">Login</button>
                 <p>or login with social platforms</p>
@@ -50,7 +50,7 @@
                     <i class='bx bxs-envelope'></i> 
                 </div>
                 <div class="input-box">
-                    <input type="password" id="r-password" name="password" placeholder="Password" required minlength="8" maxlength="32" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,32}$" title="Password must be 8-32 characters, include at least one letter and one number." >
+                    <input type="password" id="r-password" name="password" placeholder="Choose your password" required pattern="^(?=.*\d).{5,}$" title="La contraseña debe tener al menos 5 caracteres y al menos 1 número.">
                     <i class='bx bxs-lock'></i> 
                 </div>
                 <button type="submit" class="btn" value="Register">Register</button>
@@ -78,34 +78,36 @@
                     </div>
                 </div>
                 <div class="input-box">
-                    <input type="email" id="reg-email" name="email" placeholder="Email" autocomplete="email" required>
+                    <input type="email" id="reg-email" name="email" placeholder="Email: example@email.com" autocomplete="email" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label for="id-phone">Mobile Number:</label>
-                        <input type="tel" id="id-phone" name="phone" placeholder="Mobile Number" autocomplete="tel" required>
+                        <input type="tel" id="id-phone" name="phone" placeholder="+54-3489-123456" autocomplete="tel" required>
                         <i class='bx bxs-phone'></i>
                     </div>
                     <div class="input-box">
-                        <label for="date-of-birth">Date of birth:</label>
+                        <label for="date-of-birth">Date Of Birth:</label>
                         <input type="date" id="date-of-birth" name="date-of-birth" required>
                     </div>
                 </div>
-                 <div class="input-box">
+                 <div class="input-box radio-box">
                     <h3>Gender:</h3> 
-                    <label for="male">
-                    <input type="radio" id="male" name="gender" value="male" required>
-                    Male
-                    </label>
-                    <label for="female">
-                    <input type="radio" id="female" name="gender" value="female" required>
-                    Female
-                    </label>
-                    <label for="not">
-                    <input type="radio" id="not" name="gender" value="not" required>
-                    Prefer not to say
-                    </label>
+                    <div class="radio-group">
+                        <label for="male">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        Male
+                        </label>
+                        <label for="female">
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        Female
+                        </label>
+                        <label for="not">
+                        <input type="radio" id="not" name="gender" value="not" required>
+                        Prefer not to say
+                        </label>
+                    </div>
                 </div>
                 <div class="input-box">
                     <input type="text" id="id-address" name="address" placeholder="Address" autocomplete="street-address" required>
@@ -121,7 +123,7 @@
                         <i class='bx bx-envelope' ></i>
                     </div>
                 </div>
-                <button type="submit" class="btn" value="Register">Register now</button>
+                <button type="submit" id="extended-register-btn"class="btn" value="Register">Register now</button>
             </form>
         </div>  
 
