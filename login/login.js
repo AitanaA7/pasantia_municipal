@@ -45,12 +45,14 @@ document.getElementById('login-form').addEventListener('submit', async(event) =>
             <p>Here are your details:</p>
             <p>- Email: ${data.usuario.email}</p> 
             <p>- Id: ${data.usuario.id}</p>
-            <button id="logout-btn" style="margin-top:20px;background:#004578;color:#fff;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;">
-            <i class='bx bx-log-out' style="vertical-align:middle;margin-right:8px;"></i>
+            <button id="logout-btn">
+            <i class='bx bx-log-out'></i>
             Log out
             </button>
             </div>
         `;
+        document.body.style.background = "url('background_image.jpg') no-repeat center center fixed";
+        document.body.style.backgroundSize = "cover";
 
         document.getElementById('logout-btn').addEventListener('click', () => {
             sessionStorage.removeItem('authToken');
@@ -156,7 +158,36 @@ if (forgotPasswordLink) {
     });
 }
 
-// Extended Registration Form
+    // login with social media buttons
+
+// const socialButtons = document.querySelectorAll('.social-login-btn');
+// socialButtons.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         const provider = btn.dataset.provider; 
+//         let authUrl = '';
+//         switch (provider) {
+//             case 'google':
+//                 authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?...'; // reemplazar ... con los parámetros de OAuth
+//                 break;
+//             case 'facebook':
+//                 authUrl = 'https://www.facebook.com/v10.0/dialog/oauth?...'; 
+//                 break;
+//             case 'github':
+//                 authUrl = 'https://github.com/login/oauth/authorize?...'; 
+//                 break;
+//             case 'linkedin':
+//                 authUrl = 'https://www.linkedin.com/oauth/v2/authorization?...'; 
+//                 break;
+//             default:
+//                 alert('Not supported: ' + provider);
+//                 return;
+//         }
+//         window.location.href = authUrl;
+//     });
+// });
+
+
+// extended registration form
 
 window.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');

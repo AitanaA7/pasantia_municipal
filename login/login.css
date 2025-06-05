@@ -11,6 +11,10 @@ body {
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+    /* 
+    background: url('background_image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    */
 }
 
 .remember-me {
@@ -337,6 +341,27 @@ form {
     text-align: left;
     margin: 10px 0;
     color: #333;
+}
+
+#logout-btn {
+    width: 140px;
+    height: 40px;
+    background: #004578;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    margin: 20px auto 0 auto;
+    display: block;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.bx.bx-log-out {
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 /* extended registration form */
