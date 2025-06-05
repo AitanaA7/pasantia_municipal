@@ -31,16 +31,31 @@ document.getElementById('login-form').addEventListener('submit', async(event) =>
 
         const data = await response.json();
 
+        // guardo token para futuras peticiones
+        // si el token no es null, lo guardo en sessionStorage (no localStorage para mayor seguridad)
+        if (data.token) {
+            sessionStorage.setItem('authToken', data.token);
+        }
+
         console.log('Login successful:', data);
 
         document.body.innerHTML = `
             <div class="welcome-box">
-                <h1>Welcome, ${data.usuario.username} </h1>
-                <p>Here are your details:</p>
-                <p>- Email: ${data.usuario.email}</p> 
-                <p>- Id: ${data.usuario.id}</p>
+            <h1>Welcome, ${data.usuario.username} </h1>
+            <p>Here are your details:</p>
+            <p>- Email: ${data.usuario.email}</p> 
+            <p>- Id: ${data.usuario.id}</p>
+            <button id="logout-btn" style="margin-top:20px;background:#004578;color:#fff;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;">
+            <i class='bx bx-log-out' style="vertical-align:middle;margin-right:8px;"></i>
+            Log out
+            </button>
             </div>
         `;
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.removeItem('authToken');
+            location.reload();
+        });
        
     }
 
@@ -85,7 +100,7 @@ if (forgotPasswordLink) {
     forgotPasswordLink.addEventListener('click', (event) => {
         event.preventDefault();
 
-        // Create popup
+        // popup forgot password
         const popup = document.createElement('div');
         popup.style.position = 'fixed';
         popup.style.top = '50%';
@@ -209,6 +224,9 @@ if (extendedRegisterForm) {
 
             popup.querySelector('button').addEventListener('click', () => {
                 document.body.removeChild(popup);
+                container.classList.remove('active', 'extended-open');
+                document.getElementById('register-form').style.display = 'block';
+                extendedRegisterForm.style.display = 'none';
             });
         });
     }
