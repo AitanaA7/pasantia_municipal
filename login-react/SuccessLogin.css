@@ -1,0 +1,46 @@
+.welcome-box {
+    max-width: 500px;
+    width: 90%;
+    background: #fff;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+    text-align: center;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+    margin: 20px;
+}
+
+.welcome-box h1 {
+  margin-bottom: 20px;
+  color: #004578;
+  font-size: 36px;
+}
+
+.welcome-box p {
+    font-size: 18px;
+    text-align: left;
+    margin: 10px 0;
+    color: #333;
+}
+
+.logout-btn {
+    width: 140px;
+    height: 40px;
+    background: #004578;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    margin: 20px auto 0 auto;
+    display: block;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.bx.bx-log-out {
+    vertical-align: middle;
+    margin-right: 8px;
+}

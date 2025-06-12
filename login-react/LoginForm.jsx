@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import ModalError from '../ModalErrorLogin'
+import ModalError from './ModalErrorLogin'
 
-function LoginForm({ onLogin }) {
+function LoginForm({ onLogin, onForgotPassword }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false)
@@ -63,6 +63,7 @@ function LoginForm({ onLogin }) {
             <h1>Login</h1>
             <div className='input-box'>
                 <input 
+                    name='email'
                     type="email" 
                     placeholder='Email' 
                     autoComplete="email"
@@ -92,7 +93,16 @@ function LoginForm({ onLogin }) {
                 <label htmlFor="rememberMe">Remember me</label>
             </div>
             <div className='forgot-password'>
-                <a href="#" className='link'>Forgot password?</a>
+                <a
+                  href="#"
+                  className='link'
+                  onClick={e => {
+                    e.preventDefault();
+                    if (onForgotPassword) onForgotPassword();
+                  }}
+                >
+                  Forgot password?
+                </a>
             </div>
             <button type="submit" className='btn' disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}

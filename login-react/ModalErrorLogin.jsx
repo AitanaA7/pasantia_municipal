@@ -4,7 +4,7 @@ function ModalError({ message, onClose }) {
     <div className="modal-error-backdrop">
       <div className="modal-error">
         <h2>Error</h2>
-        <p>{message}</p> 
+        <p className="modal-error-message">{message}</p> 
         <button className="btn" onClick={onClose}>OK</button>
       </div>
     </div>

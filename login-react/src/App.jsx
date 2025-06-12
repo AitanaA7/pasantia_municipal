@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterForm';
-import ExtRegisterForm from '../ExtRegisterForm';
+import ExtRegisterForm from '../ExtRegForm';
 import SuccessLogin from '../SuccessLogin';
+import ForgotPassword from '../ForgotPassword';
 import 'boxicons/css/boxicons.min.css';
 import './App.css'
+import '../Form.css'
+import '../ExtRegForm.css'
+import '../SuccessLogin.css'
+import '../ModalErrorLogin.css'
 
 function App() {
   const [showLogin, setShowLogin] = useState(true)
   const [showExtRegister, setShowExtRegister] = useState(false);
   const [user, setUser] = useState(null);
+  const [showForgot, setShowForgot] = useState(false);
 
   const handleRegisterComplete = () => {
     setShowExtRegister(true)
@@ -53,9 +59,17 @@ function App() {
         </div>
       )}
       {showLogin ? (
-        <LoginForm onLogin={handleLogin} />
+        <>
+          <LoginForm 
+            onLogin={handleLogin} 
+            onForgotPassword={() => setShowForgot(true)}
+          />
+          <ForgotPassword open={showForgot} onClose={() => setShowForgot(false)} />
+        </>
       ) : showExtRegister ? (
-        <ExtRegisterForm />
+        <ExtRegisterForm onRegisterComplete={() => {
+          setShowLogin(true)  // o setShowExtRegister(false) pero vuelve a RegisterForm, no a LoginForm
+        }}/>
       ) : (
         <RegisterForm onRegisterComplete={handleRegisterComplete} />
       )}    

@@ -14,6 +14,7 @@ function RegisterForm({ onRegisterComplete }) {
             <h1>Register</h1>
             <div className='input-box'>
                 <input 
+                    name='email'
                     type="email" 
                     placeholder='Email' 
                     autoComplete="email"
@@ -29,7 +30,7 @@ function RegisterForm({ onRegisterComplete }) {
                     placeholder='Choose your password' 
                     required
                     pattern="^(?=.*\d).{5,}$"
-          title="La contraseña debe tener al menos 5 caracteres y al menos 1 número."
+                    title="La contraseña debe tener al menos 5 caracteres y al menos 1 número."
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                 />
