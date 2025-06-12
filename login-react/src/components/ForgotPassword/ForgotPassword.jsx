@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ForgotPassword.css'; 
 
 function ForgotPassword({ open, onClose }) {
   const [email, setEmail] = useState('');
@@ -16,7 +17,8 @@ function ForgotPassword({ open, onClose }) {
   if (!open) return null;
 
   const handleSend = async () => {
-    if (!email.trim()) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) {
       setInputError(true);
       return;
     }
@@ -61,8 +63,16 @@ function ForgotPassword({ open, onClose }) {
               autoComplete='email'
               value={email}
               required
+              style={{
+                border: `1px solid ${inputError ? '#ff0000' : '#ccc'}`
+              }}
               onChange={e => setEmail(e.target.value)}
             />
+            {inputError && (
+              <div style={{ color: '#ff0000', fontSize: '13px', marginBottom: 8 }}>
+                Please enter a valid email address.
+              </div>
+            )}
             <div>
               <button
                 onClick={handleSend}

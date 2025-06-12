@@ -21,3 +21,7 @@
   color: #004578;
   margin-bottom: 12px;
 }
+
+.modal-error-message {
+  color: #333; 
+}

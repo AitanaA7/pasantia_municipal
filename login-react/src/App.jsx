@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import LoginForm from '../LoginForm'
-import RegisterForm from '../RegisterForm';
-import ExtRegisterForm from '../ExtRegForm';
-import SuccessLogin from '../SuccessLogin';
-import ForgotPassword from '../ForgotPassword';
+import LoginForm from './components/Forms/LoginForm'
+import RegisterForm from './components/Forms/RegisterForm';
+import ExtRegisterForm from './components/ExtRegForm/ExtRegForm';
+import SuccessLogin from './components/SucessLogin/SuccessLogin';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import 'boxicons/css/boxicons.min.css';
 import './App.css'
-import '../Form.css'
-import '../ExtRegForm.css'
-import '../SuccessLogin.css'
-import '../ModalErrorLogin.css'
 
 function App() {
   const [showLogin, setShowLogin] = useState(true)

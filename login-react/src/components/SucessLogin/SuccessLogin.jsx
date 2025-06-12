@@ -1,4 +1,4 @@
-import 'boxicons/css/boxicons.min.css';
+import './SuccessLogin.css'
 
 function SuccessLogin({ user, onLogout }) {
   return (

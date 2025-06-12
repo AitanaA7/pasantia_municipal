@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
-import ModalError from './ModalErrorLogin'
+import './Forms.css'
+import ModalError from '../ModalErrorLogin/ModalErrorLogin'
+import '../ModalErrorLogin/ModalErrorLogin.css'
 
 function LoginForm({ onLogin, onForgotPassword }) {
     const [email, setEmail] = useState('')

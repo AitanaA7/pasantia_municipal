@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ExtRegForm.css'
 
 function ExtRegForm({ onRegisterComplete}) {
     const [form, setForm] = useState({
