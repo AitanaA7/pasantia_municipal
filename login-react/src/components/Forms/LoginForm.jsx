@@ -10,6 +10,9 @@ function LoginForm({ onLogin, onForgotPassword }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
+    const [emailError, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+
     useEffect(() => {
         const savedEmail = localStorage.getItem('rememberedEmail');
         if (savedEmail) {
@@ -18,10 +21,38 @@ function LoginForm({ onLogin, onForgotPassword }) {
         }
     }, []);
 
+      const validate = () => {
+        let valid = true;
+        setEmailError('');
+        setPasswordError('');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            setEmailError('Email is required.');
+            valid = false;
+        } else if (!emailRegex.test(email)) {
+            setEmailError('The email format is not valid.');
+            valid = false;
+        }
+
+        if (!password) {
+            setPasswordError('Password is required.');
+            valid = false;
+        } else if (password.length < 6) {
+            setPasswordError('Password must be at least 6 characters long.');
+            valid = false;
+        }
+
+        return valid;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setError('');
+
+        if (!validate()) return;
+
+        setLoading(true);
 
         try {
             const response = await fetch('http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/auth/munidigital/login', {
@@ -74,6 +105,7 @@ function LoginForm({ onLogin, onForgotPassword }) {
                     onChange={(e) => setEmail(e.target.value)} 
                 />
                 <i className='bx bxs-envelope'></i>
+                {emailError && <div className="field-error">{emailError}</div>}
             </div>
             <div className='input-box'>
                 <input 
@@ -84,6 +116,8 @@ function LoginForm({ onLogin, onForgotPassword }) {
                     onChange={(e) => setPassword(e.target.value)} 
                 />
                 <i className='bx bxs-lock'></i>
+                {passwordError && <div className="field-error">{passwordError}</div>}
+
             </div>
             <div className='remember-me'>
                 <input 

@@ -140,3 +140,10 @@ form p {
     background: #004578;
     border-color: #004578;
 }
+
+.field-error {
+    color: #ff3333;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-left: 2px;
+}

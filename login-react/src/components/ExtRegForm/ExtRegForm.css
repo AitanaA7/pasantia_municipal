@@ -55,3 +55,10 @@
     margin: 0 6px 0 0;
     cursor: pointer;
 }
+
+.field-error {
+    color: #ff3333;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-left: 2px;
+}
