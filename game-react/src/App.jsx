@@ -52,7 +52,7 @@ function App() {
     saveGameToStorage({
       board: newBoard, 
       turn: newTurn
-  })
+    })
 
     //verifico si hay ganador
     const newWinner = checkWinnerFrom(newBoard)
