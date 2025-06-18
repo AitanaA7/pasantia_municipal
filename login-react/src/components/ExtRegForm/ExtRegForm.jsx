@@ -62,7 +62,7 @@ function ExtRegForm({ onRegisterComplete}) {
     return (
             <form id="full-register-form" onSubmit={handleSubmit}> 
                 <h1>Registration Form</h1>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="text" 
                         name="firstName" 
@@ -75,7 +75,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bxs-user'></i>
                     {errors.firstName && <div className="field-error">{errors.firstName}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="text" 
                         name="lastName" 
@@ -88,7 +88,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bxs-user'></i>
                     {errors.lastName && <div className="field-error">{errors.lastName}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="email" 
                         name="email" 
@@ -102,7 +102,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     {errors.email && <div className="field-error">{errors.email}</div>}
                 </div>
                 <label htmlFor="phone">Phone Number:</label>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="tel" 
                         name="phone" 
@@ -115,7 +115,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bxs-phone'></i>
                     {errors.phone && <div className="field-error">{errors.phone}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <label htmlFor="dob">Date of Birth:</label>
                     <input 
                         type="date" 
@@ -166,7 +166,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     </div>
                     {errors.gender && <div className="field-error">{errors.gender}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="text" 
                         name="address" 
@@ -179,7 +179,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bxs-home'></i>
                     {errors.address && <div className="field-error">{errors.address}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="text" 
                         name="country" 
@@ -192,7 +192,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bx-world'></i>
                     {errors.country && <div className="field-error">{errors.country}</div>}
                 </div>
-                <div className='input-box'>
+                <div className='input-field'>
                     <input 
                         type="text" 
                         name="zip" 
@@ -205,7 +205,7 @@ function ExtRegForm({ onRegisterComplete}) {
                     <i className='bx bxs-envelope'></i>
                     {errors.zip && <div className="field-error">{errors.zip}</div>}
                 </div>
-                <button type="submit" className='btn'>Register now</button>
+                <button type="submit" className='button-primary'>Register now</button>
             </form>
             
     )

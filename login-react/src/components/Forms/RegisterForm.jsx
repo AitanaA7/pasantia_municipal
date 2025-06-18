@@ -60,8 +60,8 @@ function RegisterForm({ onRegisterComplete }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Register</h1>
-            <div className='input-box'>
+            <h1 className='text-4xl text-center font-bold text-blue-900 mb-2'>Register</h1>
+            <div className='input-field'>
                 <input 
                     name='email'
                     type="email" 
@@ -75,7 +75,7 @@ function RegisterForm({ onRegisterComplete }) {
                 {emailError && <div className="field-error">{emailError}</div>}
 
             </div>
-            <div className='input-box'>
+            <div className='input-field'>
                 <input 
                     type="password" 
                     placeholder='Choose your password' 
@@ -87,7 +87,7 @@ function RegisterForm({ onRegisterComplete }) {
                 <i class='bx bxs-lock-open'></i>
                 {passwordError && <div className="field-error">{passwordError}</div>}
             </div>
-            <div className='input-box'>
+            <div className='input-field'>
                 <input
                     type="password"
                     placeholder='Confirm your password'
@@ -98,7 +98,7 @@ function RegisterForm({ onRegisterComplete }) {
                 <i className='bx bxs-lock'></i>
                 {confirmPasswordError && <div className="field-error">{confirmPasswordError}</div>}
             </div>
-            <button type="submit" className='btn'>
+            <button type="submit" className='button-primary'>
                 {loading ? 'Registering...' : 'Register'}
             </button>
             <p>or register with social platforms</p>

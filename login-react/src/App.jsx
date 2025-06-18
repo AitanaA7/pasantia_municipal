@@ -32,24 +32,26 @@ function App() {
   }
 
   return (
-    <div className="container">
+    <div className="md:max-xl:flex flex flex-col items-center justify-center h-screen bg-gray-100">
       {!showExtRegister && (
-        <div style={{ marginBottom: '1rem', textAlign: 'center' }}>
+        <div className='flex flex-col items-center justify-center mb-8'>
           {showLogin ? (
             <>
               <span className='panel-header'>
-                <h1>Hello, Welcome!</h1>
-                <p>Don't have an account?</p>
+                <h1 className='text-4xl font-bold text-blue-900 mb-2'>Hello, Welcome!</h1>
+                <p className="text-center font-medium">Don't have an account?</p>
               </span>
-              <button className="btn" onClick={() => setShowLogin(false)}>Register</button>
+              <button className="button-primary"
+                 onClick={() => setShowLogin(false)}>Register</button>
             </>
           ) : (
             <>
               <span className='panel-header'>
-                <h1>Welcome Back!</h1>
-                <p>Already have an account?</p>
+                <h1 className='text-4xl font-bold text-blue-900 mb-2'>Welcome Back!</h1>
+                <p className="text-center font-medium">Already have an account?</p>
               </span>
-              <button className="btn" onClick={() => setShowLogin(true)}>Login</button>
+              <button className="button-primary"
+              onClick={() => setShowLogin(true)}>Login</button>
             </>
           )}
         </div>

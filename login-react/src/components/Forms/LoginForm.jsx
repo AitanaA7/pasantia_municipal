@@ -93,8 +93,8 @@ function LoginForm({ onLogin, onForgotPassword }) {
     return (
         <>
         <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <div className='input-box'>
+            <h1 className='text-4xl text-center font-bold text-blue-900 mb-2'>Login</h1>
+            <div className='input-field'>
                 <input 
                     name='email'
                     type="email" 
@@ -107,7 +107,7 @@ function LoginForm({ onLogin, onForgotPassword }) {
                 <i className='bx bxs-envelope'></i>
                 {emailError && <div className="field-error">{emailError}</div>}
             </div>
-            <div className='input-box'>
+            <div className='input-field'>
                 <input 
                     type="password" 
                     placeholder='Password' 
@@ -119,16 +119,16 @@ function LoginForm({ onLogin, onForgotPassword }) {
                 {passwordError && <div className="field-error">{passwordError}</div>}
 
             </div>
-            <div className='remember-me'>
+            <div className='justify-start mb-4 flex items-center'>
                 <input 
                     type="checkbox" 
                     id="rememberMe" 
                     checked={rememberMe} 
                     onChange={(e) => setRememberMe(e.target.checked)} 
                 />
-                <label htmlFor="rememberMe">Remember me</label>
+                <label className='text-left ml-1' htmlFor="rememberMe">Remember me</label>
             </div>
-            <div className='forgot-password'>
+            <div className='text-center mb-1 font-semibold'>
                 <a
                   href="#"
                   className='link'
@@ -140,16 +140,16 @@ function LoginForm({ onLogin, onForgotPassword }) {
                   Forgot password?
                 </a>
             </div>
-            <button type="submit" className='btn' disabled={loading}>
+            <button type="submit" className='button-primary' disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}
             </button>
             {error && <div className="error-message">{error}</div>}
-            <p>or login with social platforms</p>
-            <div className='social-icons'>
-                <a href="#" className="icon"><i className='bx bxl-google'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-facebook'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-github'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-linkedin'></i></a>
+            <p className='text-center'>or login with social platforms</p>
+            <div className='flex justify-center mt-4'>
+                <a href="#" className="social-icons"><i className='bx bxl-google'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-facebook'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-github'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-linkedin'></i></a>
             </div>
         </form>
         <ModalError 
