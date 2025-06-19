@@ -32,9 +32,9 @@ function App() {
   }
 
   return (
-    <div className="md:max-xl:flex flex flex-col items-center justify-center h-screen bg-gradient-to-r from-sky-50 via-sky-100 to-sky-200">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-sky-50 via-sky-100 to-sky-200 px-2">
       {!showExtRegister && (
-        <div className='flex flex-col items-center justify-center mb-8'>
+        <div className='flex flex-col items-center justify-center mb-8 w-full max-w-md md:max-w-lg'>
           {showLogin ? (
             <>
               <span className='panel-header'>
@@ -56,21 +56,23 @@ function App() {
           )}
         </div>
       )}
-      {showLogin ? (
-        <>
-          <LoginForm 
-            onLogin={handleLogin} 
-            onForgotPassword={() => setShowForgot(true)}
-          />
-          <ForgotPassword open={showForgot} onClose={() => setShowForgot(false)} />
-        </>
-      ) : showExtRegister ? (
-        <ExtRegisterForm onRegisterComplete={() => {
-          setShowLogin(true)  // o setShowExtRegister(false) pero vuelve a RegisterForm, no a LoginForm
-        }}/>
-      ) : (
-        <RegisterForm onRegisterComplete={handleRegisterComplete} />
-      )}    
+      <div className="w-full max-w-md md:max-w-lg bg-white/80 rounded-2xl shadow-lg p-6 md:p-10">
+        {showLogin ? (
+          <>
+            <LoginForm 
+              onLogin={handleLogin} 
+              onForgotPassword={() => setShowForgot(true)}
+            />
+            <ForgotPassword open={showForgot} onClose={() => setShowForgot(false)} />
+          </>
+        ) : showExtRegister ? (
+            <ExtRegisterForm onRegisterComplete={() => {
+              setShowLogin(true)  // o setShowExtRegister(false) pero vuelve a RegisterForm, no a LoginForm
+            }}/>
+        ) : (
+          <RegisterForm onRegisterComplete={handleRegisterComplete} />
+        )}
+      </div>    
     </div>  
   )
 }
