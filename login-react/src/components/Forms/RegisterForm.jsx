@@ -60,7 +60,7 @@ function RegisterForm({ onRegisterComplete }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1 className='text-4xl text-center font-bold text-blue-900 mb-2'>Register</h1>
+            <h1 className='text-4xl text-center font-bold text-blue-900 mb-4'>Register</h1>
             <div className='input-field'>
                 <input 
                     name='email'
@@ -71,11 +71,12 @@ function RegisterForm({ onRegisterComplete }) {
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                 />
-                <i className='bx bxs-envelope'></i>
-                {emailError && <div className="field-error">{emailError}</div>}
-
+                <i className='bx bxs-envelope icon'></i>
             </div>
-            <div className='input-field'>
+            {emailError && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{emailError}</p>
+            )}
+              <div className='input-field'>
                 <input 
                     type="password" 
                     placeholder='Choose your password' 
@@ -84,9 +85,11 @@ function RegisterForm({ onRegisterComplete }) {
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                 />
-                <i class='bx bxs-lock-open'></i>
-                {passwordError && <div className="field-error">{passwordError}</div>}
+                <i class='bx bxs-lock-open icon'></i>
             </div>
+            {passwordError && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{passwordError}</p>
+            )}
             <div className='input-field'>
                 <input
                     type="password"
@@ -95,18 +98,20 @@ function RegisterForm({ onRegisterComplete }) {
                     onChange={e => setConfirmPassword(e.target.value)}
                     required
                 />
-                <i className='bx bxs-lock'></i>
-                {confirmPasswordError && <div className="field-error">{confirmPasswordError}</div>}
+                <i className='bx bxs-lock icon'></i>
             </div>
+            {confirmPasswordError && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{confirmPasswordError}</p>
+            )}
             <button type="submit" className='button-primary'>
                 {loading ? 'Registering...' : 'Register'}
             </button>
-            <p>or register with social platforms</p>
-            <div className='social-icons'>
-                <a href="#" className="icon"><i className='bx bxl-google'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-facebook'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-github'></i></a>
-                <a href="#" className="icon"><i className='bx bxl-linkedin'></i></a>
+            <p className='text-center font-thin'>or register with social platforms</p>
+            <div className='flex justify-center mt-4'>
+                <a href="#" className="social-icons"><i className='bx bxl-google'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-facebook'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-github'></i></a>
+                <a href="#" className="social-icons"><i className='bx bxl-linkedin'></i></a>
             </div>
         </form>
     )

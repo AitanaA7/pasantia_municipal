@@ -61,7 +61,7 @@ function ExtRegForm({ onRegisterComplete}) {
 
     return (
             <form id="full-register-form" onSubmit={handleSubmit}> 
-                <h1>Registration Form</h1>
+                <h1 className='text-4xl text-center font-bold text-blue-900 mb-4'>Registration Form</h1>
                 <div className='input-field'>
                     <input 
                         type="text" 
@@ -72,9 +72,12 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.firstName} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-user'></i>
-                    {errors.firstName && <div className="field-error">{errors.firstName}</div>}
+                    <i className='bx bxs-user icon'></i>
+                    {/* {errors.firstName && <div className="field-error">{errors.firstName}</div>} */}
                 </div>
+                {errors.firstName && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.firstName}</p>
+                )}
                 <div className='input-field'>
                     <input 
                         type="text" 
@@ -85,9 +88,12 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.lastName} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-user'></i>
-                    {errors.lastName && <div className="field-error">{errors.lastName}</div>}
+                    <i className='bx bxs-user icon'></i>
+                    {/* {errors.lastName && <div className="field-error">{errors.lastName}</div>} */}
                 </div>
+                {errors.lastName && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.lastName}</p>
+                )}
                 <div className='input-field'>
                     <input 
                         type="email" 
@@ -98,11 +104,14 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.email} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-envelope'></i>
-                    {errors.email && <div className="field-error">{errors.email}</div>}
+                    <i className='bx bxs-envelope icon'></i>
+                    {/* {errors.email && <div className="field-error">{errors.email}</div>} */}
                 </div>
-                <label htmlFor="phone">Phone Number:</label>
-                <div className='input-field'>
+                {errors.email && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.email}</p>
+                )}
+                <label htmlFor="phone" className='text-base font-semibold mb-2'>Phone Number:</label>
+                <div className='input-field mt-1'>
                     <input 
                         type="tel" 
                         name="phone" 
@@ -112,25 +121,33 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.phone} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-phone'></i>
-                    {errors.phone && <div className="field-error">{errors.phone}</div>}
+                    <i className='bx bxs-phone icon'></i>
+                    {/* {errors.phone && <div className="field-error">{errors.phone}</div>} */}
                 </div>
-                <div className='input-field'>
-                    <label htmlFor="dob">Date of Birth:</label>
+                {errors.phone && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.phone}</p>
+                )}
+                <label htmlFor="dob" className='text-base font-semibold mb-2'>Date of Birth:</label>
+                <div className='input-field mt-1'>
                     <input 
                         type="date" 
                         name="dob" 
                         autoComplete='bday'
                         required
+                        className="font-medium text-gray-600 rounded-md border-none focus:outline-none 
+                        text-base flex items-center relative w-full border"
                         value={form.dob} 
                         onChange={handleChange} 
                     />
-                    {errors.dob && <div className="field-error">{errors.dob}</div>}
+                    {/* {errors.dob && <div className="field-error">{errors.dob}</div>} */}
                 </div>
-                <div className="input-box radio-box">
-                    <h3>Gender:</h3>
-                    <div className="radio-group">
-                        <label>
+                {errors.dob && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.dob}</p>
+                )}
+                <div className="input-box radio-box mt-2 pl-0">
+                    <h3 className="text-base font-semibold mb-1">Gender:</h3>
+                    <div className="flex flex-col gap-1 ml-0">
+                        <label className='flex items-center w-fit min-w-0 py-1.5 cursor-pointer rounded-md transition-colors text-[17px] font-normal gap-2 whitespace-nowrap hover:bg-blue-100'>
                             <input
                             type="radio"
                             name="gender"
@@ -138,10 +155,11 @@ function ExtRegForm({ onRegisterComplete}) {
                             checked={form.gender === "male"}
                             onChange={handleGenderChange}
                             required
+                            className="accent-blue-900 bg-white mr-1.5 cursor-pointer"
                             />
                             Male
                         </label>
-                        <label>
+                        <label className='flex items-center w-fit min-w-0 py-1.5 cursor-pointer rounded-md transition-colors text-[17px] font-normal gap-2 whitespace-nowrap hover:bg-blue-100'>
                             <input
                             type="radio"
                             name="gender"
@@ -149,10 +167,11 @@ function ExtRegForm({ onRegisterComplete}) {
                             checked={form.gender === "female"}
                             onChange={handleGenderChange}
                             required
+                            className="accent-blue-900 bg-white mr-1.5 cursor-pointer"
                             />
                             Female
                         </label>
-                        <label>
+                        <label className='flex items-center w-fit min-w-0 py-1.5 cursor-pointer rounded-md transition-colors text-[17px] font-normal gap-2 whitespace-nowrap hover:bg-blue-100'>
                             <input
                             type="radio"
                             name="gender"
@@ -160,13 +179,17 @@ function ExtRegForm({ onRegisterComplete}) {
                             checked={form.gender === "not"}
                             onChange={handleGenderChange}
                             required
+                            className="accent-blue-900 bg-white mr-1.5 cursor-pointer"
                             />
                             Prefer not to say
                         </label>
                     </div>
-                    {errors.gender && <div className="field-error">{errors.gender}</div>}
+                    {/* {errors.gender && <div className="field-error">{errors.gender}</div>} */}
                 </div>
-                <div className='input-field'>
+                {errors.gender && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.gender}</p>
+                )}
+                <div className='input-field mt-2'>
                     <input 
                         type="text" 
                         name="address" 
@@ -176,9 +199,12 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.address} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-home'></i>
-                    {errors.address && <div className="field-error">{errors.address}</div>}
+                    <i className='bx bxs-home icon'></i>
+                    {/* {errors.address && <div className="field-error">{errors.address}</div>} */}
                 </div>
+                {errors.address && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.address}</p>
+                )}
                 <div className='input-field'>
                     <input 
                         type="text" 
@@ -189,9 +215,12 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.country} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bx-world'></i>
-                    {errors.country && <div className="field-error">{errors.country}</div>}
+                    <i className='bx bx-world icon'></i>
+                    {/* {errors.country && <div className="field-error">{errors.country}</div>} */}
                 </div>
+                {errors.country && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.country}</p>
+                )}
                 <div className='input-field'>
                     <input 
                         type="text" 
@@ -202,9 +231,12 @@ function ExtRegForm({ onRegisterComplete}) {
                         value={form.zip} 
                         onChange={handleChange} 
                     />
-                    <i className='bx bxs-envelope'></i>
-                    {errors.zip && <div className="field-error">{errors.zip}</div>}
+                    <i className='bx bxs-envelope icon'></i>
+                    {/* {errors.zip && <div className="field-error">{errors.zip}</div>} */}
                 </div>
+                {errors.zip && (
+                <p className="mt-1 mb-1 text-sm text-red-600 text-center">{errors.zip}</p>
+                )}
                 <button type="submit" className='button-primary'>Register now</button>
             </form>
             

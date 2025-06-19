@@ -8,14 +8,29 @@
 
 .input-field {
     @apply w-full py-3 pr-12 pl-5 bg-blue-50 rounded-lg border-none outline-none focus:outline-none
-    text-base text-gray-800 font-medium placeholder:text-gray-600 placeholder:font-normal mb-4
+    focus:ring-0 focus:shadow-none 
+    text-base text-gray-800 font-normal placeholder:text-gray-600 placeholder:font-normal mb-4
     flex items-center relative;
 }
 
 .social-icons{
     @apply inline-flex p-2.5 border-2 border-gray-300 rounded-lg text-2xl text-gray-800
-    no-underline mx-2 transition-colors duration-200 hover:text-white hover:bg-blue-950 
+    no-underline mx-2 transition-colors duration-200 hover:text-white hover:bg-blue-900 hover:shadow-blue-700
     hover:border-gray-500;
+}
+
+.icon {
+    @apply absolute right-4 pointer-events-none;
+}
+
+
+
+/* css puro */
+
+input:focus, input:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 /* *{

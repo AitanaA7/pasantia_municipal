@@ -32,7 +32,7 @@ function App() {
   }
 
   return (
-    <div className="md:max-xl:flex flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="md:max-xl:flex flex flex-col items-center justify-center h-screen bg-gradient-to-r from-sky-50 via-sky-100 to-sky-200">
       {!showExtRegister && (
         <div className='flex flex-col items-center justify-center mb-8'>
           {showLogin ? (

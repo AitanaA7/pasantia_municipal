@@ -54,50 +54,34 @@ function ForgotPassword({ open, onClose }) {
       <div style={popupStyle}>
         {step === 'form' ? (
           <>
-            <h2 className="password-reset-title" style={{ marginBottom: 18 }}>Reset Password</h2>
-            <p className="password-reset-message" style={{ marginBottom: 16 }}>Enter your email to reset your password:</p>
+            <h2 className="text-2xl text-blue-900 text-center mb-5 font-semibold" style={{ marginBottom: 18 }}>Reset Password</h2>
+            <p className="text-base text-gray-800 text-center mb-7" style={{ marginBottom: 16 }}>Enter your email to reset your password:</p>
             <input
-            className='password-reset-input'
+            className={`px-2 py-1 w-[90%] mb-2 rounded border outline-none bg-white text-black ${
+          inputError ? 'border-red-500' : 'border-gray-300'
+        }`}
               type="email"
               placeholder="Email"
               autoComplete='email'
               value={email}
               required
-              style={{
-                border: `1px solid ${inputError ? '#ff0000' : '#ccc'}`
-              }}
               onChange={e => setEmail(e.target.value)}
             />
             {inputError && (
-              <div style={{ color: '#ff0000', fontSize: '13px', marginBottom: 8 }}>
+              <div className="text-red-600 text-sm mb-2">
                 Please enter a valid email address.
               </div>
             )}
             <div>
               <button
                 onClick={handleSend}
-                style={{
-                  background: '#004578',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: 6,
-                  padding: '8px 20px',
-                  cursor: 'pointer',
-                  marginRight: 8
-                }}
+                className="bg-blue-900 text-white rounded-lg px-5 py-2 mr-2 hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 Send
               </button>
               <button
                 onClick={onClose}
-                style={{
-                  background: '#ccc',
-                  color: '#333',
-                  border: 'none',
-                  borderRadius: 6,
-                  padding: '8px 20px',
-                  cursor: 'pointer'
-                }}
+                className="bg-gray-300 text-gray-800 rounded-lg px-5 py-2 hover:bg-gray-400 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -105,20 +89,13 @@ function ForgotPassword({ open, onClose }) {
           </>
         ) : (
           <>
-            <h2 className="password-reset-title" style={{ marginBottom: 16 }}>Password Reset</h2>
-            <p className="password-reset-message" style={{ marginBottom: 24 }}>
+            <h2 className="text-2xl text-blue-900 text-center mb-5 font-semibold" style={{ marginBottom: 16 }}>Password Reset</h2>
+            <p className="text-base text-gray-800 text-center mb-7" style={{ marginBottom: 24 }}>
               If the email exists, you will receive instructions to reset your password.
             </p>
             <button
               onClick={onClose}
-              style={{
-                background: '#004578',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 6,
-                padding: '8px 20px',
-                cursor: 'pointer'
-              }}
+              className="bg-blue-900 text-white rounded-lg px-5 py-2 mr-2 hover:bg-blue-700 transition-colors cursor-pointer"
             >
               OK
             </button>
