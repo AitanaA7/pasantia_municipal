@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import FechaEntrega from "./FechaEntrega";
-import Direccion from "./Direccion";
-import Localizacion from "./Localizacion";
-import DatosChofer from "./DatosChofer";
-import Logistica from "./Logistica";
-import DatosSolicitante from "./DatosSolicitante";
+import FechaEntrega from "./DeliveryDate";
+import Direccion from "./Address";
+import Localizacion from "./Location";
+import DatosChofer from "./DriverData";
+import Logistica from "./Logistics";
+import DatosSolicitante from "./ApplicantData";
 
 const schema = yup.object({
     fechaDesde: yup.date().required("Fecha desde es requerida"),

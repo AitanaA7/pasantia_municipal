@@ -1,4 +1,4 @@
-const Logistica = ({ register, errors }) => {
+const Logistics = ({ register, errors }) => {
   return (
     <div>
       <label>Logística</label>
@@ -18,4 +18,4 @@ const Logistica = ({ register, errors }) => {
   );
 };
 
-export default Logistica;
+export default Logistics;

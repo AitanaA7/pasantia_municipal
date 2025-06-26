@@ -1,4 +1,4 @@
-const Localizacion = () => {
+const Location = () => {
   return (
     <div>
       <label>Localización</label>
@@ -8,4 +8,4 @@ const Localizacion = () => {
   );
 };
 
-export default Localizacion;
+export default Location;

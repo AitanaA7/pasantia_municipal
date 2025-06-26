@@ -1,4 +1,4 @@
-const Direccion = ({ register, errors }) => {
+const Address = ({ register, errors }) => {
   return (
     <div>
       <label>Calle</label>
@@ -31,4 +31,4 @@ const Direccion = ({ register, errors }) => {
   );
 };
 
-export default Direccion;
+export default Address;

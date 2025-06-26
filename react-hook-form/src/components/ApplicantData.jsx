@@ -1,4 +1,4 @@
-const DatosSolicitante = ({ register, errors }) => {
+const ApplicantData = ({ register, errors }) => {
   return (
     <div>
       <label>Datos solicitante</label>
@@ -10,4 +10,4 @@ const DatosSolicitante = ({ register, errors }) => {
   );
 };
 
-export default DatosSolicitante;
+export default ApplicantData;

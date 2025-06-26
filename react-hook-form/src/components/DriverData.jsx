@@ -1,4 +1,4 @@
-const DatosChofer = ({ register, errors }) => {
+const DriverData = ({ register, errors }) => {
   return (
     <div>
       <label>Datos chofer</label>
@@ -18,4 +18,4 @@ const DatosChofer = ({ register, errors }) => {
   );
 };
 
-export default DatosChofer;
+export default DriverData;

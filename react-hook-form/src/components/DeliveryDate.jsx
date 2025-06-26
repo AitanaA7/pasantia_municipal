@@ -1,4 +1,4 @@
-const FechaEntrega = ({ register, errors }) => {
+const DeliveryDate = ({ register, errors }) => {
   return (
     <div>
       <label>Fecha de entrega</label>
@@ -16,4 +16,4 @@ const FechaEntrega = ({ register, errors }) => {
   );
 };
 
-export default FechaEntrega;
+export default DeliveryDate;
