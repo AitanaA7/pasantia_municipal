@@ -16,17 +16,44 @@ const schema = yup.object({
         "La fecha hasta debe ser posterior a la fecha desde"
     ),
     calle: yup.string().required("Calle es requerida"),
-    altura: yup.string().required("Altura es requerida"),
+    altura: yup.number()
+        .required("Altura es requerida")
+        .min(0, "Altura debe ser un número positivo")
+        .max(55555, "Altura no puede exceder los 5 dígitos"),
     entreCalle1: yup.string()
-        .notOneOf([yup.ref('calle')], 'Entre calle 1 no puede ser igual a la calle principal'),
+        .test(
+          'distinto', 
+          'Entre calle 1 no puede repetirse con otras calles', 
+          (value) => {
+            const { calle, entreCalle2 } = this.parent;
+            return !value || (!calle || value !== calle) && (!entreCalle2 || value !== entreCalle2);
+          }
+        ),
     entreCalle2: yup.string()
-        .notOneOf([yup.ref('calle'), yup.ref('entreCalle1')], 'Entre calle 2 no puede repetirse con otras calles'),
+        .test('distinto', 'Entre calle 2 no puede repetirse con otras calles', function(value) {
+            const { calle, entreCalle1 } = this.parent;
+            return !value || (!calle || value !== calle) && (!entreCalle1 || value !== entreCalle1);
+        }),
     lotes: yup.string(),
     choferNombre: yup.string().required("Nombre del chofer es requerido"),
-    DNIchofer: yup.string().required("DNI del chofer es requerido"),
-    patenteCamion: yup.string().required("Patente del camión es requerida"),
+    DNIchofer: yup.number("DNI debe ser un número")
+        .required("DNI del chofer es requerido")
+        .min(0, "DNI debe ser un número positivo")
+        .max(88888888, "DNI no puede exceder los 8 dígitos"),
+    patenteCamion: yup.string()
+        .required("Patente del camión es requerida"),
+        // .test(
+        //   'formato-patente',
+        //   'Debe ingresar una patente válida (Ej: AB123CD o ABC123)',
+        //   (value) => {
+        //     const regex1 = /^[A-Z]{2}\d{3}[A-Z]{2}$/; // AB123CD
+        //     const regex2 = /^[A-Z]{3}\d{3}$/; // ABC123
+        //     return (regex1.test(value) || regex2.test(value));
+        //   }
+        // ),
+
     tipoVolquete: yup.string().required("Tipo de volquete es requerido"),
-    volqueteNumero: yup.string().required("Volquete N° es requerido"),
+    volqueteNumero: yup.number().required("Volquete N° es requerido"),
     destinoFinal: yup.string().required("Destino final del material es requerido"),
     solicitanteNombre: yup.string()
 });
