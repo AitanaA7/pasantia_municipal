@@ -28,21 +28,18 @@ const Address = ({ register, errors }) => {
   }, []);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-purple-200 p-6">
-      <label className="block text-lg font-semibold text-purple-800 mb-2">
+    <div className="div">
+      <label className="label">
         Calle*
       </label>
-      <p className="text-sm text-gray-600 mb-4 bg-purple-50 p-3 rounded-lg border-l-4 border-purple-400">
+      <p className="small">
         <strong>Nota:</strong> Si no posee altura especifique sus entrecalles
       </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-1">
-          {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-            Calle
-          </label> */}
           {loading ? (
-            <div className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-500">
+            <div className="loading">
               Cargando calles...
             </div>
           ) : error ? (
@@ -51,13 +48,13 @@ const Address = ({ register, errors }) => {
               {...register("calle")} 
               placeholder="Calle (Error al cargar lista)" 
               required
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200"
+              className="loading-error"
             />
           ) : (
             <div className="relative">
               <select 
                 {...register("calle")} 
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200 appearance-none cursor-pointer text-gray-700 placeholder-gray-400 pr-10"
+                className="select"
                 defaultValue=""
                 required
               >
@@ -76,7 +73,7 @@ const Address = ({ register, errors }) => {
             </div>
           )}
           {errors.calle && (
-            <p className="mt-1 text-sm text-red-600 flex items-center">
+            <p className="error-message">
               <span className="mr-1"></span>
               {errors.calle.message}
             </p>
@@ -84,18 +81,15 @@ const Address = ({ register, errors }) => {
         </div>
 
         <div className="md:col-span-1">
-          {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-            Altura Calle
-          </label> */}
           <input 
             type="text" 
             {...register("altura")} 
             placeholder="Altura calle. Ej: 1234" 
             required
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200 text-gray-700 placeholder-gray-400"
+            className="input"
           />
           {errors.altura && (
-            <p className="mt-1 text-sm text-red-600 flex items-center">
+            <p className="error-message">
               <span className="mr-1"></span>
               {errors.altura.message}
             </p>
@@ -103,11 +97,8 @@ const Address = ({ register, errors }) => {
         </div>
 
         <div className="md:col-span-1">
-          {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-            Entre calle 1
-          </label> */}
           {loading ? (
-            <div className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-500">
+            <div className="loading">
               Cargando calles...
             </div>
           ) : error ? (
@@ -115,13 +106,13 @@ const Address = ({ register, errors }) => {
               type="text" 
               {...register("entreCalle1")} 
               placeholder="Entre calle 1 (Error al cargar lista)" 
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200"
+              className="loading-error"
             />
           ) : (
             <div className="relative">
               <select 
                 {...register("entreCalle1")} 
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200 appearance-none cursor-pointer text-gray-700 placeholder-gray-400 pr-10"
+                className="select"
                 defaultValue=""
               >
                 <option value="">Entre calle 1</option>
@@ -139,7 +130,7 @@ const Address = ({ register, errors }) => {
             </div>
           )}
           {errors.entreCalle1 && (
-            <p className="mt-1 text-sm text-red-600 flex items-center">
+            <p className="error-message">
               <span className="mr-1"></span>
               {errors.entreCalle1.message}
             </p>
@@ -147,11 +138,8 @@ const Address = ({ register, errors }) => {
         </div>
 
         <div className="md:col-span-1">
-          {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-            Entre calle 2
-          </label> */}
           {loading ? (
-            <div className="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-500">
+            <div className="loading">
               Cargando calles...
             </div>
           ) : error ? (
@@ -159,13 +147,13 @@ const Address = ({ register, errors }) => {
               type="text" 
               {...register("entreCalle2")} 
               placeholder="Entre calle 2 (Error al cargar lista)" 
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200"
+              className="loading-error"
             />
           ) : (
             <div className="relative">
               <select 
                 {...register("entreCalle2")} 
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200 appearance-none cursor-pointer text-gray-700 placeholder-gray-400 pr-10"
+                className="select"
                 defaultValue=""
               >
                 <option value="">Entre calle 2</option>
@@ -183,7 +171,7 @@ const Address = ({ register, errors }) => {
             </div>
           )}
           {errors.entreCalle2 && (
-            <p className="mt-1 text-sm text-red-600 flex items-center">
+            <p className="error-message">
               <span className="mr-1"></span>
               {errors.entreCalle2.message}
             </p>
@@ -191,17 +179,14 @@ const Address = ({ register, errors }) => {
         </div>
 
         <div className="md:col-span-2">
-          {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-            Lotes Country/ETC
-          </label> */}
           <input 
             type="text" 
             {...register("lotes")} 
             placeholder="Lotes Country/ETC" 
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400 transition duration-200 text-gray-700 placeholder-gray-400"
+            className="input"
           />
           {errors.lotes && (
-            <p className="mt-1 text-sm text-red-600 flex items-center">
+            <p className="error-message">
               <span className="mr-1"></span>
               {errors.lotes.message}
             </p>

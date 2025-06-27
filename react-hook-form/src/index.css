@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.label {
+    @apply block text-lg font-semibold text-purple-800 mb-4
+}
+
+.div {
+    @apply bg-white rounded-xl shadow-sm border border-purple-200 p-6
+}
+
+.small {
+    @apply text-sm text-gray-600 mb-4 bg-purple-50 p-3 rounded-lg border-l-4 border-purple-400
+}
+
+.input {
+    @apply w-full px-4 py-3 bg-white border border-gray-300 rounded-lg 
+    focus:ring-2 focus:ring-purple-500 focus:border-purple-500 
+    hover:border-gray-400 transition duration-200 text-gray-700 placeholder-gray-400
+}
+
+.select {
+    @apply w-full px-4 py-3 bg-white border border-gray-300 rounded-lg
+    focus:ring-2 focus:ring-purple-500 focus:border-purple-500 
+    hover:border-gray-400 transition duration-200 text-gray-700 placeholder-gray-400 
+    appearance-none cursor-pointer pr-10
+}
+
+.loading {
+    @apply w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-500
+}
+
+.loading-error {
+    @apply w-full px-4 py-3 bg-white border border-gray-300 rounded-lg 
+    focus:ring-2 focus:ring-purple-500 focus:border-purple-500 
+    hover:border-gray-400 transition duration-200
+}
+
+.error-message {
+    @apply mt-1 text-sm text-red-600 flex items-center
+}
+
+.btn {
+    @apply bg-gradient-to-r from-purple-600 to-violet-700 
+    hover:from-purple-700 hover:to-violet-800 text-white font-bold py-3 px-8 rounded-lg 
+    shadow-lg transform transition duration-200 hover:scale-105 
+    focus:outline-none focus:ring-4 focus:ring-purple-300
+}

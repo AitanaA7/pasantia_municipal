@@ -53,12 +53,12 @@ const Location = () => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-purple-200 p-6 space-y-4">
+    <div className="div">
       <div>
-        <label className="block text-lg font-semibold text-purple-800 mb-2">
+        <label className="label">
           Localización*
         </label>
-        <p className="text-sm text-gray-600 mb-4 bg-purple-50 p-3 rounded-lg border-l-4 border-purple-400">
+        <p className="small">
           <strong>Instrucciones:</strong> Arrastre el ícono de ubicación (azul), o haga click sobre la calle y altura aproximada, o hacia la calle y entre calles destino
         </p>
       </div>
@@ -86,7 +86,7 @@ const Location = () => {
       </div>
       
       {location && (
-        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mt-4">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
             <span className="text-purple-700 text-sm font-medium">
