@@ -4,8 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
 const Location = () => {
-  const [calles, setCalles] = useState([]);
-  const [calleSeleccionada, setCalleSeleccionada] = useState('');
   const [location, setLocation] = useState({ lat: -34.16326, lng: -58.95918 }); // Plaza Eduardo Costa, centro Campana
   const [locationRequested, setLocationRequested] = useState(false); 
   
@@ -15,10 +13,6 @@ const Location = () => {
     iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
-
-  const handleCalleChange = (e) => {
-    setCalleSeleccionada(e.target.value);
-  };
 
   function LocationMarker({ onChange, position, locationRequested, setLocationRequested }) {
     const map = useMapEvents({
