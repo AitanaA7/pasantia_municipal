@@ -47,3 +47,13 @@
     shadow-lg transform transition duration-200 hover:scale-105 
     focus:outline-none focus:ring-4 focus:ring-purple-300
 }
+
+/* para eliminar flechas de los inputs type number */
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input[type="number"] {
+    -moz-appearance: textfield;
+}

@@ -47,6 +47,7 @@ const DeliveryDate = ({ register, errors, watch }) => {
           <input 
             type="date" 
             {...register("fechaHasta")} 
+            min={getTodayDate()}
             required
             className={`w-full px-4 py-3 bg-white rounded-lg focus:ring-2 transition duration-200 text-gray-700 placeholder-gray-400 ${
               isHastaEmpty 

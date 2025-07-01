@@ -12,11 +12,11 @@ import ApplicantData from "./ApplicantData";
 const schema = yup.object({
     fechaDesde: yup.date()
         .required("Fecha desde es requerida")
-        .min(new Date().setHours(0,0,0,0), "La fecha desde no puede ser anterior al día actual"),
-    fechaHasta: yup.date().required("Fecha hasta es requerida").min(
-        yup.ref('fechaDesde'),
-        "La fecha hasta debe ser posterior a la fecha desde"
-    ),
+        .min(new Date(new Date().setHours(0,0,0,0)), "La fecha desde no puede ser anterior al día actual"),
+    fechaHasta: yup.date()
+        .required("Fecha hasta es requerida")
+        .min(new Date(new Date().setHours(0,0,0,0)), "La fecha hasta no puede ser anterior al día actual")
+        .min(yup.ref('fechaDesde'), "La fecha hasta debe ser posterior a la fecha desde"),
     calle: yup.string().required("Calle es requerida"),
     altura: yup.number()
         .typeError("Altura debe ser un número")
