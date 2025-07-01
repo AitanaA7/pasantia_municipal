@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import schema from "../schemas/formSchema";
-import DeliveryDate from "./DeliveryDate";
-import Address from "./Address";
+import DeliveryDate from "./inputFields/DeliveryDate";
+import Address from "./inputFields/Address";
 import Location from "./Location";
-import DriverData from "./DriverData";
-import Logistics from "./Logistics";
-import ApplicantData from "./ApplicantData";
-import CredentialsModal from "./CredentialsModal";
-import SuccessModal from "./SuccessModal";
+import DriverData from "./inputFields/DriverData";
+import Logistics from "./inputFields/Logistics";
+import ApplicantData from "./inputFields/ApplicantData";
+import CredentialsModal from "./modals/CredentialsModal";
+import SuccessModal from "./modals/SuccessLoginModal";
 
 const Form = () => {
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);

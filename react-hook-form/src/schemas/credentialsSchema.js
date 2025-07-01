@@ -2,10 +2,9 @@ import * as yup from "yup";
 
 const credentialsSchema = yup.object({
     usuario: yup.string()
-        .required("El usuario es requerido")
-        .min(3, "El usuario debe tener al menos 3 caracteres")
-        .max(20, "El usuario no puede exceder los 20 caracteres")
-        .matches(/^[a-zA-Z0-9_.-]+$/, "El usuario solo puede contener letras, números, guiones, puntos y guiones bajos"),
+        .required("El email es requerido")
+        .email("Debe ser un email válido")
+        .max(100, "El email no puede exceder los 100 caracteres"),
     contraseña: yup.string()
         .required("La contraseña es requerida")
         .min(6, "La contraseña debe tener al menos 6 caracteres")
