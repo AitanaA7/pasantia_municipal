@@ -24,6 +24,7 @@ const schema = yup.object({
         .min(0, "Altura debe ser un número positivo")
         .max(55555, "Altura no puede exceder los 5 dígitos"),
     entreCalle1: yup.string()
+        .required("Entre calle 1 es requerido")
         .test(
           'distinto', 
           'Entre calle 1 no puede repetirse con otras calles', 
@@ -33,6 +34,7 @@ const schema = yup.object({
           }
         ),
     entreCalle2: yup.string()
+        .required("Entre calle 2 es requerido")
         .test(
           'distinto',
           'Entre calle 2 no puede repetirse con otras calles',
@@ -70,8 +72,9 @@ const schema = yup.object({
 
 const Form = () => {
   const [showModal, setShowModal] = useState(false);
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, watch, reset, formState: { errors, isValid } } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange', // La validación se ejecuta en cada cambio
   });
 
   console.log("Errores actuales del formulario:", errors);
@@ -108,7 +111,8 @@ return (
           <div className="flex justify-center pt-6 border-t border-purple-200">
               <button 
                   type="submit"
-                  className="btn"
+                  className={`btn transition-opacity duration-200 ${!isValid ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={!isValid}
                   onClick={() => console.log("Botón clickeado")}
               >
                   Cargar credenciales
