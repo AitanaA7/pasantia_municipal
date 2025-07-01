@@ -10,7 +10,9 @@ import Logistics from "./Logistics";
 import ApplicantData from "./ApplicantData";
 
 const schema = yup.object({
-    fechaDesde: yup.date().required("Fecha desde es requerida"),
+    fechaDesde: yup.date()
+        .required("Fecha desde es requerida")
+        .min(new Date().setHours(0,0,0,0), "La fecha desde no puede ser anterior al día actual"),
     fechaHasta: yup.date().required("Fecha hasta es requerida").min(
         yup.ref('fechaDesde'),
         "La fecha hasta debe ser posterior a la fecha desde"
@@ -31,10 +33,14 @@ const schema = yup.object({
           }
         ),
     entreCalle2: yup.string()
-        .test('distinto', 'Entre calle 2 no puede repetirse con otras calles', function(value) {
+        .test(
+          'distinto',
+          'Entre calle 2 no puede repetirse con otras calles',
+          function(value) {
             const { calle, entreCalle1 } = this.parent;
             return !value || (!calle || value !== calle) && (!entreCalle1 || value !== entreCalle1);
-        }),
+          }
+        ),
     lotes: yup.string(),
     choferNombre: yup.string().required("Nombre del chofer es requerido"),
     DNIchofer: yup.number()
@@ -68,10 +74,10 @@ const Form = () => {
     resolver: yupResolver(schema),
   });
 
-  console.log("Current form errors:", errors);
+  console.log("Errores actuales del formulario:", errors);
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
+    console.log("Formulario enviado:", data);
 
     // Muestro modal de éxito
     setShowModal(true);
@@ -80,7 +86,7 @@ const Form = () => {
   };
 
   const onError = (errors) => {
-    console.log("Form errors:", errors);
+    console.log("Errores del formulario:", errors);
   };
 
   const closeModal = () => {
@@ -103,7 +109,7 @@ return (
               <button 
                   type="submit"
                   className="btn"
-                  onClick={() => console.log("Button clicked")}
+                  onClick={() => console.log("Botón clickeado")}
               >
                   Cargar credenciales
               </button>

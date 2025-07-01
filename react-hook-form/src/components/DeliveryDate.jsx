@@ -5,6 +5,11 @@ const DeliveryDate = ({ register, errors, watch }) => {
     return tomorrow.toISOString().split('T')[0];
   };
 
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
   const fechaHasta = watch ? watch("fechaHasta") : null;
   const isHastaEmpty = !fechaHasta || fechaHasta === "";
 
@@ -22,6 +27,7 @@ const DeliveryDate = ({ register, errors, watch }) => {
             type="date" 
             {...register("fechaDesde")} 
             defaultValue={getTomorrowDate()}
+            min={getTodayDate()}
             required
             className="input"
           />
