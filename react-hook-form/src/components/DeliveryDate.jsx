@@ -10,8 +10,17 @@ const DeliveryDate = ({ register, errors, watch }) => {
     return today.toISOString().split('T')[0];
   };
 
+  const getMaxDateHasta = (fechaDesde) => {
+    if (!fechaDesde) return null;
+    const maxDate = new Date(fechaDesde);
+    maxDate.setDate(maxDate.getDate() + 9);
+    return maxDate.toISOString().split('T')[0];
+  };
+
+  const fechaDesde = watch ? watch("fechaDesde") : null;
   const fechaHasta = watch ? watch("fechaHasta") : null;
   const isHastaEmpty = !fechaHasta || fechaHasta === "";
+  const maxDateHasta = getMaxDateHasta(fechaDesde);
 
   return (
     <div className="div">
@@ -47,7 +56,8 @@ const DeliveryDate = ({ register, errors, watch }) => {
           <input 
             type="date" 
             {...register("fechaHasta")} 
-            min={getTodayDate()}
+            min={fechaDesde || getTodayDate()}
+            max={maxDateHasta}
             required
             className={`w-full px-4 py-3 bg-white rounded-lg focus:ring-2 transition duration-200 text-gray-700 placeholder-gray-400 ${
               isHastaEmpty 

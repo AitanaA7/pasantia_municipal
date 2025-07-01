@@ -16,7 +16,21 @@ const schema = yup.object({
     fechaHasta: yup.date()
         .required("Fecha hasta es requerida")
         .min(new Date(new Date().setHours(0,0,0,0)), "La fecha hasta no puede ser anterior al día actual")
-        .min(yup.ref('fechaDesde'), "La fecha hasta debe ser posterior a la fecha desde"),
+        .min(yup.ref('fechaDesde'), "La fecha hasta debe ser posterior a la fecha desde")
+        .test(
+            'max-9-dias',
+            'La fecha hasta no puede ser más de 9 días posterior a la fecha desde',
+            function(value) {
+                const { fechaDesde } = this.parent;
+                if (!fechaDesde || !value) return true;
+                
+                const fechaDesdeDate = new Date(fechaDesde);
+                const fechaHastaDate = new Date(value);
+                const diferenciaDias = Math.ceil((fechaHastaDate - fechaDesdeDate) / (1000 * 60 * 60 * 24));
+                
+                return diferenciaDias <= 9;
+            }
+        ),
     calle: yup.string().required("Calle es requerida"),
     altura: yup.number()
         .typeError("Altura debe ser un número")
