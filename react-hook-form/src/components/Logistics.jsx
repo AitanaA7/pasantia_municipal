@@ -34,7 +34,7 @@ const Logistics = ({ register, errors }) => {
 
         <div>
           <input 
-            type="text" 
+            type="number" 
             {...register("volqueteNumero")} 
             placeholder="Volquete N°" 
             required

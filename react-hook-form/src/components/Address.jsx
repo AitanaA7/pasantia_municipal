@@ -82,7 +82,7 @@ const Address = ({ register, errors }) => {
 
         <div className="md:col-span-1">
           <input 
-            type="text" 
+            type="number" 
             {...register("altura")} 
             placeholder="Altura calle. Ej: 1234" 
             required

@@ -24,7 +24,7 @@ const DriverData = ({ register, errors }) => {
 
         <div>
           <input 
-            type="text" 
+            type="number" 
             {...register("DNIchofer")} 
             placeholder="DNI del chofer. Ej: 12345678" 
             required
@@ -41,8 +41,12 @@ const DriverData = ({ register, errors }) => {
         <div>
           <input 
             type="text" 
-            {...register("patenteCamion")} 
-            placeholder="Patente del camión. Ej: ABC123" 
+            {...register("patenteCamion", {
+              onChange: (e) => {
+                e.target.value = e.target.value.toUpperCase();
+              }
+            })} 
+            placeholder="Patente del camión. Ej: AB123CD o ABC123" 
             required
             className="input"
           />

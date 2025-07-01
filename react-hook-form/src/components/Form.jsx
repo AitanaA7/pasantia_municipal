@@ -17,6 +17,7 @@ const schema = yup.object({
     ),
     calle: yup.string().required("Calle es requerida"),
     altura: yup.number()
+        .typeError("Altura debe ser un número")
         .required("Altura es requerida")
         .min(0, "Altura debe ser un número positivo")
         .max(55555, "Altura no puede exceder los 5 dígitos"),
@@ -24,7 +25,7 @@ const schema = yup.object({
         .test(
           'distinto', 
           'Entre calle 1 no puede repetirse con otras calles', 
-          (value) => {
+          function(value) {
             const { calle, entreCalle2 } = this.parent;
             return !value || (!calle || value !== calle) && (!entreCalle2 || value !== entreCalle2);
           }
@@ -36,24 +37,27 @@ const schema = yup.object({
         }),
     lotes: yup.string(),
     choferNombre: yup.string().required("Nombre del chofer es requerido"),
-    DNIchofer: yup.number("DNI debe ser un número")
+    DNIchofer: yup.number()
+        .typeError("DNI debe ser un número")
         .required("DNI del chofer es requerido")
         .min(0, "DNI debe ser un número positivo")
         .max(88888888, "DNI no puede exceder los 8 dígitos"),
     patenteCamion: yup.string()
-        .required("Patente del camión es requerida"),
-        // .test(
-        //   'formato-patente',
-        //   'Debe ingresar una patente válida (Ej: AB123CD o ABC123)',
-        //   (value) => {
-        //     const regex1 = /^[A-Z]{2}\d{3}[A-Z]{2}$/; // AB123CD
-        //     const regex2 = /^[A-Z]{3}\d{3}$/; // ABC123
-        //     return (regex1.test(value) || regex2.test(value));
-        //   }
-        // ),
+        .required("Patente del camión es requerida")
+        .test(
+          'formato-patente',
+          'Debe ingresar una patente válida (Ej: AB123CD o ABC123)',
+          (value) => {
+            const regex1 = /^[A-Z]{2}\d{3}[A-Z]{2}$/; // AB123CD
+            const regex2 = /^[A-Z]{3}\d{3}$/; // ABC123
+            return (regex1.test(value) || regex2.test(value));
+          }
+        ),
 
     tipoVolquete: yup.string().required("Tipo de volquete es requerido"),
-    volqueteNumero: yup.number().required("Volquete N° es requerido"),
+    volqueteNumero: yup.number()
+        .typeError("Volquete N° debe ser un número")
+        .required("Volquete N° es requerido"),
     destinoFinal: yup.string().required("Destino final del material es requerido"),
     solicitanteNombre: yup.string()
 });
@@ -64,6 +68,8 @@ const Form = () => {
     resolver: yupResolver(schema),
   });
 
+  console.log("Current form errors:", errors);
+
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
 
@@ -73,13 +79,17 @@ const Form = () => {
     reset();
   };
 
+  const onError = (errors) => {
+    console.log("Form errors:", errors);
+  };
+
   const closeModal = () => {
     setShowModal(false);
   };
 
 return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8">
           <div className="space-y-6">
               <DeliveryDate register={register} errors={errors} watch={watch} />
               <Address register={register} errors={errors} />
@@ -93,6 +103,7 @@ return (
               <button 
                   type="submit"
                   className="btn"
+                  onClick={() => console.log("Button clicked")}
               >
                   Cargar credenciales
               </button>
