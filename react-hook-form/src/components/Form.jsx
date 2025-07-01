@@ -85,19 +85,45 @@ const schema = yup.object({
     solicitanteNombre: yup.string()
 });
 
+const credentialsSchema = yup.object({
+    usuario: yup.string()
+        .required("El usuario es requerido")
+        .min(3, "El usuario debe tener al menos 3 caracteres")
+        .max(20, "El usuario no puede exceder los 20 caracteres")
+        .matches(/^[a-zA-Z0-9_.-]+$/, "El usuario solo puede contener letras, números, guiones, puntos y guiones bajos"),
+    contraseña: yup.string()
+        .required("La contraseña es requerida")
+        .min(6, "La contraseña debe tener al menos 6 caracteres")
+        .max(50, "La contraseña no puede exceder los 50 caracteres")
+        .matches(/(?=.*[a-z])/, "La contraseña debe contener al menos una letra minúscula")
+        .matches(/(?=.*[A-Z])/, "La contraseña debe contener al menos una letra mayúscula")
+        .matches(/(?=.*\d)/, "La contraseña debe contener al menos un número"),
+    recordar: yup.boolean()
+});
+
 const Form = () => {
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState(null);
-  const [credentials, setCredentials] = useState({
-    usuario: '',
-    contraseña: '',
-    recordar: false
-  });
   
   const { register, handleSubmit, watch, reset, formState: { errors, isValid } } = useForm({
     resolver: yupResolver(schema),
-    mode: 'onChange', // La validación se ejecuta en cada cambio
+    mode: 'onChange',
+  });
+
+  const { 
+    register: registerCredentials, 
+    handleSubmit: handleSubmitCredentials, 
+    reset: resetCredentials, 
+    formState: { errors: credentialsErrors, isValid: isCredentialsValid } 
+  } = useForm({
+    resolver: yupResolver(credentialsSchema),
+    mode: 'onChange',
+    defaultValues: {
+      usuario: '',
+      contraseña: '',
+      recordar: false
+    }
   });
 
   console.log("Errores actuales del formulario:", errors);
@@ -114,48 +140,31 @@ const Form = () => {
     console.log("Errores del formulario:", errors);
   };
 
-  const handleCredentialsChange = (field, value) => {
-    setCredentials(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
-  const handleCredentialsSubmit = () => {
-    console.log("Credenciales enviadas:", credentials);
+  const onCredentialsSubmit = (credentialsData) => {
+    console.log("Credenciales enviadas:", credentialsData);
     console.log("Datos del formulario:", formData);
     
     // Cierro modal de credenciales y muestro modal de éxito
     setShowCredentialsModal(false);
     setShowSuccessModal(true);
     
-    // Reseteo formulario
+    // Reseteo formulario principal
     reset();
     
     // Reseteo credenciales si no se marcó "recordar"
-    if (!credentials.recordar) {
-      setCredentials({
-        usuario: '',
-        contraseña: '',
-        recordar: false
-      });
+    if (!credentialsData.recordar) {
+      resetCredentials();
     }
   };
 
   const closeCredentialsModal = () => {
     setShowCredentialsModal(false);
-    setCredentials({
-      usuario: '',
-      contraseña: '',
-      recordar: false
-    });
+    resetCredentials();
   };
 
   const closeSuccessModal = () => {
     setShowSuccessModal(false);
   };
-
-  const isCredentialsValid = credentials.usuario.trim() !== '' && credentials.contraseña.trim() !== '';
 
 return (
     <>
@@ -198,56 +207,72 @@ return (
             </div>
             
             <div className="p-6">
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Usuario"
-                  value={credentials.usuario}
-                  onChange={(e) => handleCredentialsChange('usuario', e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                />
+              <form onSubmit={handleSubmitCredentials(onCredentialsSubmit)} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Usuario"
+                    {...registerCredentials('usuario')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
+                      credentialsErrors.usuario 
+                        ? 'border-red-500 focus:ring-red-500' 
+                        : 'border-gray-300 focus:ring-purple-500'
+                    }`}
+                  />
+                  {credentialsErrors.usuario && (
+                    <p className="text-red-500 text-sm mt-1">{credentialsErrors.usuario.message}</p>
+                  )}
+                </div>
                 
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  value={credentials.contraseña}
-                  onChange={(e) => handleCredentialsChange('contraseña', e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                />
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Contraseña"
+                    {...registerCredentials('contraseña')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
+                      credentialsErrors.contraseña 
+                        ? 'border-red-500 focus:ring-red-500' 
+                        : 'border-gray-300 focus:ring-purple-500'
+                    }`}
+                  />
+                  {credentialsErrors.contraseña && (
+                    <p className="text-red-500 text-sm mt-1">{credentialsErrors.contraseña.message}</p>
+                  )}
+                </div>
                 
                 <div className="flex items-center">
                   <input
                     type="checkbox"
                     id="recordar"
-                    checked={credentials.recordar}
-                    onChange={(e) => handleCredentialsChange('recordar', e.target.checked)}
+                    {...registerCredentials('recordar')}
                     className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
                   />
                   <label htmlFor="recordar" className="ml-2 text-sm text-gray-700">
                     Recordar credenciales
                   </label>
                 </div>
-              </div>
-              
-              <div className="flex justify-between gap-3 mt-6">
-                <button
-                  onClick={handleCredentialsSubmit}
-                  disabled={!isCredentialsValid}
-                  className={`px-6 py-2 bg-purple-600 text-white rounded-lg transition-all duration-200 ${
-                    isCredentialsValid 
-                      ? 'hover:bg-purple-700' 
-                      : 'opacity-50 cursor-not-allowed'
-                  }`}
-                >
-                  Enviar
-                </button>
-                <button
-                  onClick={closeCredentialsModal}
-                  className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  Cerrar modal
-                </button>
-              </div>
+                
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    type="submit"
+                    disabled={!isCredentialsValid}
+                    className={`px-6 py-2 bg-purple-600 text-white rounded-lg transition-all duration-200 ${
+                      isCredentialsValid 
+                        ? 'hover:bg-purple-700' 
+                        : 'opacity-50 cursor-not-allowed'
+                    }`}
+                  >
+                    Enviar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={closeCredentialsModal}
+                    className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Cerrar modal
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
