@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
-import 'boxicons/css/boxicons.min.css';
 import DeliveryDate from "./DeliveryDate";
 import Address from "./Address";
 import Location from "./Location";
 import DriverData from "./DriverData";
 import Logistics from "./Logistics";
 import ApplicantData from "./ApplicantData";
+import CredentialsModal from "./CredentialsModal";
+import SuccessModal from "./SuccessModal";
 
 const schema = yup.object({
     fechaDesde: yup.date()
@@ -85,22 +86,6 @@ const schema = yup.object({
     solicitanteNombre: yup.string()
 });
 
-const credentialsSchema = yup.object({
-    usuario: yup.string()
-        .required("El usuario es requerido")
-        .min(3, "El usuario debe tener al menos 3 caracteres")
-        .max(20, "El usuario no puede exceder los 20 caracteres")
-        .matches(/^[a-zA-Z0-9_.-]+$/, "El usuario solo puede contener letras, números, guiones, puntos y guiones bajos"),
-    contraseña: yup.string()
-        .required("La contraseña es requerida")
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(50, "La contraseña no puede exceder los 50 caracteres")
-        .matches(/(?=.*[a-z])/, "La contraseña debe contener al menos una letra minúscula")
-        .matches(/(?=.*[A-Z])/, "La contraseña debe contener al menos una letra mayúscula")
-        .matches(/(?=.*\d)/, "La contraseña debe contener al menos un número"),
-    recordar: yup.boolean()
-});
-
 const Form = () => {
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -109,21 +94,6 @@ const Form = () => {
   const { register, handleSubmit, watch, reset, formState: { errors, isValid } } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
-  });
-
-  const { 
-    register: registerCredentials, 
-    handleSubmit: handleSubmitCredentials, 
-    reset: resetCredentials, 
-    formState: { errors: credentialsErrors, isValid: isCredentialsValid } 
-  } = useForm({
-    resolver: yupResolver(credentialsSchema),
-    mode: 'onChange',
-    defaultValues: {
-      usuario: '',
-      contraseña: '',
-      recordar: false
-    }
   });
 
   console.log("Errores actuales del formulario:", errors);
@@ -150,16 +120,10 @@ const Form = () => {
     
     // Reseteo formulario principal
     reset();
-    
-    // Reseteo credenciales si no se marcó "recordar"
-    if (!credentialsData.recordar) {
-      resetCredentials();
-    }
   };
 
   const closeCredentialsModal = () => {
     setShowCredentialsModal(false);
-    resetCredentials();
   };
 
   const closeSuccessModal = () => {
@@ -190,124 +154,16 @@ return (
           </div>
       </form>
 
-      {/* Modal de credenciales */}
-      {showCredentialsModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300">
-            <div className="bg-gradient-to-r from-purple-600 to-violet-700 text-white p-6 rounded-t-2xl">
-              <div className="flex items-center justify-center mb-2">
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <i className='bx bx-user text-white text-2xl'></i>
-                </div>
-              </div>
-              <h2 className="text-xl font-bold text-center">Ingrese sus credenciales</h2>
-              <p className="text-sm text-center mt-2 text-purple-100">
-                Las credenciales son únicas por cada empresa de volquetes registrada
-              </p>
-            </div>
-            
-            <div className="p-6">
-              <form onSubmit={handleSubmitCredentials(onCredentialsSubmit)} className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Usuario"
-                    {...registerCredentials('usuario')}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
-                      credentialsErrors.usuario 
-                        ? 'border-red-500 focus:ring-red-500' 
-                        : 'border-gray-300 focus:ring-purple-500'
-                    }`}
-                  />
-                  {credentialsErrors.usuario && (
-                    <p className="text-red-500 text-sm mt-1">{credentialsErrors.usuario.message}</p>
-                  )}
-                </div>
-                
-                <div>
-                  <input
-                    type="password"
-                    placeholder="Contraseña"
-                    {...registerCredentials('contraseña')}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
-                      credentialsErrors.contraseña 
-                        ? 'border-red-500 focus:ring-red-500' 
-                        : 'border-gray-300 focus:ring-purple-500'
-                    }`}
-                  />
-                  {credentialsErrors.contraseña && (
-                    <p className="text-red-500 text-sm mt-1">{credentialsErrors.contraseña.message}</p>
-                  )}
-                </div>
-                
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="recordar"
-                    {...registerCredentials('recordar')}
-                    className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
-                  />
-                  <label htmlFor="recordar" className="ml-2 text-sm text-gray-700">
-                    Recordar credenciales
-                  </label>
-                </div>
-                
-                <div className="flex justify-between gap-3 mt-6">
-                  <button
-                    type="submit"
-                    disabled={!isCredentialsValid}
-                    className={`px-6 py-2 bg-purple-600 text-white rounded-lg transition-all duration-200 ${
-                      isCredentialsValid 
-                        ? 'hover:bg-purple-700' 
-                        : 'opacity-50 cursor-not-allowed'
-                    }`}
-                  >
-                    Enviar
-                  </button>
-                  <button
-                    type="button"
-                    onClick={closeCredentialsModal}
-                    className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Cerrar modal
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
+      <CredentialsModal 
+        isOpen={showCredentialsModal}
+        onSubmit={onCredentialsSubmit}
+        onClose={closeCredentialsModal}
+      />
 
-      {/* Modal de éxito */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300">
-            <div className="bg-gradient-to-r from-purple-600 to-violet-700 text-white p-6 rounded-t-2xl">
-              <div className="flex items-center justify-center mb-2">
-                <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <i className='bx bx-lock text-white text-2xl'></i>
-                </div>
-              </div>
-              <h2 className="text-xl font-bold text-center">Solicitud enviada</h2>
-            </div>
-            
-            <div className="p-6">
-              <p className="text-gray-600 text-center mb-6">
-                Su registro de volquete ha sido enviado correctamente.
-              </p>
-              
-              <div className="flex justify-center">
-                <button
-                  onClick={closeSuccessModal}
-                  className="btn"
-                >
-                  OK
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <SuccessModal 
+        isOpen={showSuccessModal}
+        onClose={closeSuccessModal}
+      />
     </>
 );
 };
