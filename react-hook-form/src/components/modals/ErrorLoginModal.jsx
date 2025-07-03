@@ -14,7 +14,7 @@ const ErrorLoginModal = ({ isOpen, onRetry, onClose }) => {
           </div>
           <h2 className="text-xl font-bold text-center">Error de Autenticación</h2>
           <p className="text-sm text-center mt-2 opacity-90">
-            Usuario o contraseña incorrectos
+            Email o contraseña incorrectos
           </p>
         </div>
         
@@ -23,7 +23,7 @@ const ErrorLoginModal = ({ isOpen, onRetry, onClose }) => {
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
               <i className='bx bx-error-circle text-red-500 text-3xl mb-2'></i>
               <p className="text-red-800 font-medium">Credenciales incorrectas</p>
-              <p className="text-red-600 text-sm mt-1">Por favor, verifique su usuario y contraseña</p>
+              <p className="text-red-600 text-sm mt-1">Por favor, verifique su email y contraseña</p>
             </div>
             <div className="flex gap-3">
               <button

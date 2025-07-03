@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
+    "@tanstack/react-query": "5.81.5",
+    "@tanstack/react-query-devtools": "5.81.5",
     "boxicons": "^2.1.4",
     "leaflet": "^1.9.4",
     "react": "^19.0.0-rc.1",

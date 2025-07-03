@@ -15,10 +15,35 @@ const Form = () => {
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState(null);
+  const [resetTrigger, setResetTrigger] = useState(0);
+  const [loggedUser, setLoggedUser] = useState('');
   
+  // Función para obtener la fecha de mañana
+  const getTomorrowDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  };
+
   const { register, handleSubmit, watch, reset, formState: { errors, isValid } } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
+    defaultValues: {
+      fechaDesde: getTomorrowDate(),
+      fechaHasta: '',
+      calle: '',
+      altura: '',
+      entreCalle1: '',
+      entreCalle2: '',
+      lotes: '',
+      choferNombre: '',
+      DNIchofer: '',
+      patenteCamion: '',
+      tipoVolquete: '',
+      volqueteNumero: '',
+      destinoFinal: '',
+      solicitanteNombre: ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -37,12 +62,12 @@ const Form = () => {
     console.log("Credenciales enviadas:", credentialsData);
     console.log("Datos del formulario:", formData);
     
+    // Guardar el usuario logueado
+    setLoggedUser(credentialsData.usuario);
+    
     // Cierro modal de credenciales y muestro modal de éxito
     setShowCredentialsModal(false);
     setShowSuccessModal(true);
-    
-    // Reseteo formulario principal
-    reset();
   };
 
   const closeCredentialsModal = () => {
@@ -51,6 +76,28 @@ const Form = () => {
 
   const closeSuccessModal = () => {
     setShowSuccessModal(false);
+    // Reseteo formulario cuando se cierra el modal de éxito con fechas por defecto
+    reset({
+      fechaDesde: getTomorrowDate(),
+      fechaHasta: '',
+      calle: '',
+      altura: '',
+      entreCalle1: '',
+      entreCalle2: '',
+      lotes: '',
+      choferNombre: '',
+      DNIchofer: '',
+      patenteCamion: '',
+      tipoVolquete: '',
+      volqueteNumero: '',
+      destinoFinal: '',
+      solicitanteNombre: ''
+    });
+    // También limpio los datos guardados
+    setFormData(null);
+    setLoggedUser('');
+    // Triggeo el reset del componente Location
+    setResetTrigger(prev => prev + 1);
   };
 
 return (
@@ -59,7 +106,7 @@ return (
           <div className="space-y-6">
               <DeliveryDate register={register} errors={errors} watch={watch} />
               <Address register={register} errors={errors} />
-              <Location />
+              <Location resetTrigger={resetTrigger} />
               <DriverData register={register} errors={errors} />
               <Logistics register={register} errors={errors} />
               <ApplicantData register={register} errors={errors} />
@@ -85,6 +132,7 @@ return (
       <SuccessModal 
         isOpen={showSuccessModal}
         onClose={closeSuccessModal}
+        userName={loggedUser}
       />
     </>
 );

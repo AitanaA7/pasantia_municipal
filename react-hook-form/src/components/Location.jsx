@@ -3,9 +3,17 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-const Location = () => {
+const Location = ({ resetTrigger }) => {
   const [location, setLocation] = useState({ lat: -34.16326, lng: -58.95918 }); // Plaza Eduardo Costa, centro Campana
   const [locationRequested, setLocationRequested] = useState(false); 
+  
+  // Efecto para resetear cuando se recibe la señal
+  useEffect(() => {
+    if (resetTrigger > 0) {
+      setLocation({ lat: -34.16326, lng: -58.95918 });
+      setLocationRequested(false);
+    }
+  }, [resetTrigger]); 
   
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({

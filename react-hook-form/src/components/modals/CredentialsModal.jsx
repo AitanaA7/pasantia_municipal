@@ -2,16 +2,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import credentialsSchema from "../../schemas/credentialsSchema";
 import { useState, useEffect } from "react";
-import SuccessModal from "./SuccessLoginModal";
+import { useAuth } from "../../hooks/useAuth";
 import ErrorLoginModal from "./ErrorLoginModal";
 import 'boxicons/css/boxicons.min.css';
 
 
-const CredentialsModal = ({ isOpen, onClose }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
   const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [loggedUser, setLoggedUser] = useState('');
+  
+  const { loginUserAsync, isLoggingIn, resetLogin } = useAuth();
   
   const { 
     register, 
@@ -48,67 +47,49 @@ const CredentialsModal = ({ isOpen, onClose }) => {
   }, [isOpen, setValue]);
 
   const handleCredentialsSubmit = async (credentialsData) => {
-    setIsLoading(true);
     setShowError(false);
     
     try {
-      const response = await fetch('http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/auth/munidigital/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          email: credentialsData.usuario,
-          password: credentialsData.contraseña
-        })
-      });
-
-      if (response.ok) {
-        await response.json();
-        
-        // Guardo datos en localStorage
-        const userData = {
-          email: credentialsData.usuario,
-          loginTime: new Date().toISOString(),
-          rememberCredentials: credentialsData.recordar
-        };
-        
-        localStorage.setItem('userCredentials', JSON.stringify(userData));
-        
-        // Establecer el usuario logueado para mostrar en el modal de éxito
-        setLoggedUser(credentialsData.usuario);
-        setShowSuccess(true);
-        
-        // Reseteo credenciales si no clickeó "recordar"
-        if (!credentialsData.recordar) {
-          reset();
-        }
-      } else {
-        setShowError(true);
+      await loginUserAsync(credentialsData);
+      
+      // Guardo datos en localStorage
+      const userData = {
+        email: credentialsData.usuario,
+        loginTime: new Date().toISOString(),
+        rememberCredentials: credentialsData.recordar
+      };
+      
+      localStorage.setItem('userCredentials', JSON.stringify(userData));
+      
+      // Reseteo credenciales si no clickeó "recordar"
+      if (!credentialsData.recordar) {
+        reset();
+      }
+      
+      // Cerrar modal y notificar al componente padre inmediatamente
+      handleClose();
+      if (onSubmit) {
+        onSubmit({ usuario: credentialsData.usuario });
       }
     } catch (error) {
       console.error('Error en la petición:', error);
       setShowError(true);
-    } finally {
-      setIsLoading(false);
+      // Limpiar contraseña cuando hay error de login
+      setValue('contraseña', '');
     }
   };
 
   const handleClose = () => {
     reset();
     setShowError(false);
-    setShowSuccess(false);
+    resetLogin();
     onClose();
   };
 
   const handleRetryLogin = () => {
     setShowError(false);
-  };
-
-  const handleSuccessClose = () => {
-    setShowSuccess(false);
-    handleClose();
+    // Limpiar solo la contraseña cuando hay error de login
+    setValue('contraseña', '');
   };
 
   if (!isOpen) return null;
@@ -137,13 +118,13 @@ const CredentialsModal = ({ isOpen, onClose }) => {
                 <input
                   type="email"
                   placeholder="Email"
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                   {...register('usuario')}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
                     errors.usuario 
                       ? 'border-red-500 focus:ring-red-500' 
                       : 'border-gray-300 focus:ring-purple-500'
-                  } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  } ${isLoggingIn ? 'opacity-50 cursor-not-allowed' : ''}`}
                 />
                 {errors.usuario && (
                   <p className="text-red-500 text-sm mt-1">{errors.usuario.message}</p>
@@ -154,13 +135,13 @@ const CredentialsModal = ({ isOpen, onClose }) => {
                 <input
                   type="password"
                   placeholder="Contraseña"
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                   {...register('contraseña')}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
                     errors.contraseña 
                       ? 'border-red-500 focus:ring-red-500' 
                       : 'border-gray-300 focus:ring-purple-500'
-                  } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  } ${isLoggingIn ? 'opacity-50 cursor-not-allowed' : ''}`}
                 />
                 {errors.contraseña && (
                   <p className="text-red-500 text-sm mt-1">{errors.contraseña.message}</p>
@@ -171,7 +152,7 @@ const CredentialsModal = ({ isOpen, onClose }) => {
                 <input
                   type="checkbox"
                   id="recordar"
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                   {...register('recordar')}
                   className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
                 />
@@ -183,20 +164,20 @@ const CredentialsModal = ({ isOpen, onClose }) => {
               <div className="flex justify-between gap-3 mt-6">
                 <button
                   type="submit"
-                  disabled={!isValid || isLoading}
+                  disabled={!isValid || isLoggingIn}
                   className={`px-6 py-2 bg-purple-600 text-white rounded-lg transition-all duration-200 flex items-center gap-2 ${
-                    isValid && !isLoading
+                    isValid && !isLoggingIn
                       ? 'hover:bg-purple-700' 
                       : 'opacity-50 cursor-not-allowed'
                   }`}
                 >
-                  {isLoading && <i className='bx bx-loader-alt animate-spin'></i>}
-                  {isLoading ? 'Verificando...' : 'Enviar'}
+                  {isLoggingIn && <i className='bx bx-loader-alt animate-spin'></i>}
+                  {isLoggingIn ? 'Verificando...' : 'Enviar'}
                 </button>
                 <button
                   type="button"
                   onClick={handleClose}
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                   className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
                 >
                   Cerrar modal
@@ -206,13 +187,6 @@ const CredentialsModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-
-      {/* Modal de éxito */}
-      <SuccessModal
-        isOpen={showSuccess}
-        onClose={handleSuccessClose}
-        userName={loggedUser}
-      />
 
       {/* Modal de error */}
       <ErrorLoginModal

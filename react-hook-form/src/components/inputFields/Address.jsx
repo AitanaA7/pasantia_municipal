@@ -1,31 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useStreets } from '../../hooks/useStreets';
 
 const Address = ({ register, errors }) => {
-  const [calles, setCalles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchCalles = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/commons/calles');
-        if (!response.ok) {
-          throw new Error('Error al cargar las calles');
-        }
-        const data = await response.json();
-        setCalles(data);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching calles:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCalles();
-  }, []);
+  const { calles, isLoading: loading, error } = useStreets();
 
   return (
     <div className="div">
@@ -59,7 +35,7 @@ const Address = ({ register, errors }) => {
                 required
               >
                 <option value="">Calle</option>
-                {calles.map((calle, index) => (
+                {calles?.map((calle, index) => (
                   <option key={index} value={typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}>
                     {typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}
                   </option>
@@ -116,7 +92,7 @@ const Address = ({ register, errors }) => {
                 defaultValue=""
               >
                 <option value="">Entre calle 1</option>
-                {calles.map((calle, index) => (
+                {calles?.map((calle, index) => (
                   <option key={index} value={typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}>
                     {typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}
                   </option>
@@ -157,7 +133,7 @@ const Address = ({ register, errors }) => {
                 defaultValue=""
               >
                 <option value="">Entre calle 2</option>
-                {calles.map((calle, index) => (
+                {calles?.map((calle, index) => (
                   <option key={index} value={typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}>
                     {typeof calle === 'string' ? calle : calle.nombre || calle.descripcion}
                   </option>
