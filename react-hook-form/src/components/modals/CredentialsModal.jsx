@@ -66,7 +66,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
         reset();
       }
       
-      // Cerrar modal y notificar al componente padre inmediatamente
+      // Cierro modal
       handleClose();
       if (onSubmit) {
         onSubmit({ usuario: credentialsData.usuario });
@@ -74,7 +74,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
     } catch (error) {
       console.error('Error en la petición:', error);
       setShowError(true);
-      // Limpiar contraseña cuando hay error de login
+      // Limpio contraseña cuando hay error de login
       setValue('contraseña', '');
     }
   };
@@ -88,7 +88,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
 
   const handleRetryLogin = () => {
     setShowError(false);
-    // Limpiar solo la contraseña cuando hay error de login
+    // Limpio la contraseña cuando hay error de login
     setValue('contraseña', '');
   };
 
