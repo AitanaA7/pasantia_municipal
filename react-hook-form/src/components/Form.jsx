@@ -21,8 +21,6 @@ const Form = () => {
     mode: 'onChange',
   });
 
-  console.log("Errores actuales del formulario:", errors);
-
   const onSubmit = (data) => {
     console.log("Formulario enviado:", data);
     
@@ -72,7 +70,6 @@ return (
                   type="submit"
                   className={`btn transition-opacity duration-200 ${!isValid ? 'opacity-50 cursor-not-allowed' : ''}`}
                   disabled={!isValid}
-                  onClick={() => console.log("Botón clickeado")}
               >
                   Cargar credenciales
               </button>

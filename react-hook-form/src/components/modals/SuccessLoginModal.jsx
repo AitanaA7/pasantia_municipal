@@ -1,6 +1,6 @@
 import 'boxicons/css/boxicons.min.css';
 
-const SuccessModal = ({ isOpen, onClose }) => {
+const SuccessModal = ({ isOpen, onClose, userName }) => {
   if (!isOpen) return null;
 
   return (
@@ -12,7 +12,9 @@ const SuccessModal = ({ isOpen, onClose }) => {
               <i className='bx bx-user-check text-white text-2xl'></i>
             </div>
           </div>
-          <h2 className="text-xl font-bold text-center">Solicitud enviada</h2>
+          <h2 className="text-xl font-bold text-center">
+            Solicitud enviada {userName ? userName : ''}
+          </h2>
         </div>
         
         <div className="p-6">

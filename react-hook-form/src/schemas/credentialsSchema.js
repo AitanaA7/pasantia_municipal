@@ -7,11 +7,8 @@ const credentialsSchema = yup.object({
         .max(100, "El email no puede exceder los 100 caracteres"),
     contraseña: yup.string()
         .required("La contraseña es requerida")
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(50, "La contraseña no puede exceder los 50 caracteres")
-        .matches(/(?=.*[a-z])/, "La contraseña debe contener al menos una letra minúscula")
-        .matches(/(?=.*[A-Z])/, "La contraseña debe contener al menos una letra mayúscula")
-        .matches(/(?=.*\d)/, "La contraseña debe contener al menos un número"),
+        .min(1, "La contraseña es requerida")
+        .max(50, "La contraseña no puede exceder los 50 caracteres"),
     recordar: yup.boolean()
 });
 

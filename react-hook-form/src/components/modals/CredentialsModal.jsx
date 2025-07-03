@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import credentialsSchema from "../../schemas/credentialsSchema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SuccessModal from "./SuccessLoginModal";
 import ErrorLoginModal from "./ErrorLoginModal";
 import 'boxicons/css/boxicons.min.css';
@@ -11,11 +11,13 @@ const CredentialsModal = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [loggedUser, setLoggedUser] = useState('');
   
   const { 
     register, 
     handleSubmit, 
     reset, 
+    setValue,
     formState: { errors, isValid } 
   } = useForm({
     resolver: yupResolver(credentialsSchema),
@@ -27,6 +29,24 @@ const CredentialsModal = ({ isOpen, onClose }) => {
     }
   });
 
+  // Cargar credenciales guardadas cuando se abre el modal
+  useEffect(() => {
+    if (isOpen) {
+      const savedCredentials = localStorage.getItem('userCredentials');
+      if (savedCredentials) {
+        try {
+          const userData = JSON.parse(savedCredentials);
+          if (userData.rememberCredentials && userData.email) {
+            setValue('usuario', userData.email);
+            setValue('recordar', true);
+          }
+        } catch (error) {
+          console.error('Error al cargar credenciales guardadas:', error);
+        }
+      }
+    }
+  }, [isOpen, setValue]);
+
   const handleCredentialsSubmit = async (credentialsData) => {
     setIsLoading(true);
     setShowError(false);
@@ -36,15 +56,28 @@ const CredentialsModal = ({ isOpen, onClose }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          usuario: credentialsData.usuario,
-          contraseña: credentialsData.contraseña
+          email: credentialsData.usuario,
+          password: credentialsData.contraseña
         })
       });
 
       if (response.ok) {
         await response.json();
+        
+        // Guardo datos en localStorage
+        const userData = {
+          email: credentialsData.usuario,
+          loginTime: new Date().toISOString(),
+          rememberCredentials: credentialsData.recordar
+        };
+        
+        localStorage.setItem('userCredentials', JSON.stringify(userData));
+        
+        // Establecer el usuario logueado para mostrar en el modal de éxito
+        setLoggedUser(credentialsData.usuario);
         setShowSuccess(true);
         
         // Reseteo credenciales si no clickeó "recordar"
@@ -54,7 +87,8 @@ const CredentialsModal = ({ isOpen, onClose }) => {
       } else {
         setShowError(true);
       }
-    } catch {
+    } catch (error) {
+      console.error('Error en la petición:', error);
       setShowError(true);
     } finally {
       setIsLoading(false);
@@ -177,6 +211,7 @@ const CredentialsModal = ({ isOpen, onClose }) => {
       <SuccessModal
         isOpen={showSuccess}
         onClose={handleSuccessClose}
+        userName={loggedUser}
       />
 
       {/* Modal de error */}
