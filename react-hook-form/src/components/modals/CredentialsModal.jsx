@@ -4,6 +4,12 @@ import credentialsSchema from "../../schemas/credentialsSchema";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import ErrorLoginModal from "./ErrorLoginModal";
+import { 
+  defaultCredentialsValues, 
+  storageKeys, 
+  credentialsModalTexts,
+  createUserData 
+} from "../../constants/formConstants";
 import 'boxicons/css/boxicons.min.css';
 
 
@@ -21,17 +27,13 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
   } = useForm({
     resolver: yupResolver(credentialsSchema),
     mode: 'onChange',
-    defaultValues: {
-      usuario: '',
-      contraseña: '',
-      recordar: false
-    }
+    defaultValues: defaultCredentialsValues
   });
 
   // Cargar credenciales guardadas cuando se abre el modal
   useEffect(() => {
     if (isOpen) {
-      const savedCredentials = localStorage.getItem('userCredentials');
+      const savedCredentials = localStorage.getItem(storageKeys.userCredentials);
       if (savedCredentials) {
         try {
           const userData = JSON.parse(savedCredentials);
@@ -53,13 +55,8 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
       await loginUserAsync(credentialsData);
       
       // Guardo datos en localStorage
-      const userData = {
-        email: credentialsData.usuario,
-        loginTime: new Date().toISOString(),
-        rememberCredentials: credentialsData.recordar
-      };
-      
-      localStorage.setItem('userCredentials', JSON.stringify(userData));
+      const userData = createUserData(credentialsData);
+      localStorage.setItem(storageKeys.userCredentials, JSON.stringify(userData));
       
       // Reseteo credenciales si no clickeó "recordar"
       if (!credentialsData.recordar) {
@@ -105,9 +102,9 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
                 <i className='bx bx-user text-white text-2xl'></i>
               </div>
             </div>
-            <h2 className="text-xl font-bold text-center">Ingrese sus credenciales</h2>
+            <h2 className="text-xl font-bold text-center">{credentialsModalTexts.title}</h2>
             <p className="text-sm text-center mt-2 opacity-90">
-              Las credenciales son únicas por cada empresa de volquetes registrada.
+              {credentialsModalTexts.subtitle}
             </p>
           </div>
           
@@ -117,7 +114,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
               <div>
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder={credentialsModalTexts.emailPlaceholder}
                   disabled={isLoggingIn}
                   {...register('usuario')}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
@@ -134,7 +131,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
               <div>
                 <input
                   type="password"
-                  placeholder="Contraseña"
+                  placeholder={credentialsModalTexts.passwordPlaceholder}
                   disabled={isLoggingIn}
                   {...register('contraseña')}
                   className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent ${
@@ -157,7 +154,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
                   className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
                 />
                 <label htmlFor="recordar" className="ml-2 text-sm text-gray-700">
-                  Recordar credenciales
+                  {credentialsModalTexts.rememberLabel}
                 </label>
               </div>
               
@@ -172,7 +169,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
                   }`}
                 >
                   {isLoggingIn && <i className='bx bx-loader-alt animate-spin'></i>}
-                  {isLoggingIn ? 'Verificando...' : 'Enviar'}
+                  {isLoggingIn ? credentialsModalTexts.submitButtonLoading : credentialsModalTexts.submitButton}
                 </button>
                 <button
                   type="button"
@@ -180,7 +177,7 @@ const CredentialsModal = ({ isOpen, onClose, onSubmit }) => {
                   disabled={isLoggingIn}
                   className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
                 >
-                  Cerrar modal
+                  {credentialsModalTexts.closeButton}
                 </button>
               </div>
             </form>

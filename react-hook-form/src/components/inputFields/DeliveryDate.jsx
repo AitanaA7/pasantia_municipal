@@ -1,16 +1,6 @@
+import { getTodayDate, getMaxDateHasta } from "../../constants/formConstants";
+
 const DeliveryDate = ({ register, errors, watch }) => {
-  const getTodayDate = () => {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
-  };
-
-  const getMaxDateHasta = (fechaDesde) => {
-    if (!fechaDesde) return null;
-    const maxDate = new Date(fechaDesde);
-    maxDate.setDate(maxDate.getDate() + 9);
-    return maxDate.toISOString().split('T')[0];
-  };
-
   const fechaDesde = watch ? watch("fechaDesde") : null;
   const fechaHasta = watch ? watch("fechaHasta") : null;
   const isHastaEmpty = !fechaHasta || fechaHasta === "";

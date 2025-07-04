@@ -10,6 +10,7 @@ import Logistics from "./inputFields/Logistics";
 import ApplicantData from "./inputFields/ApplicantData";
 import CredentialsModal from "./modals/CredentialsModal";
 import SuccessModal from "./modals/SuccessLoginModal";
+import { defaultFormValues, getResetValues } from "../constants/formConstants";
 
 const Form = () => {
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
@@ -17,33 +18,11 @@ const Form = () => {
   const [formData, setFormData] = useState(null);
   const [resetTrigger, setResetTrigger] = useState(0);
   const [loggedUser, setLoggedUser] = useState('');
-  
-  // Función para obtener la fecha de mañana
-  const getTomorrowDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
-  };
 
   const { register, handleSubmit, watch, reset, formState: { errors, isValid } } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
-    defaultValues: {
-      fechaDesde: getTomorrowDate(),
-      fechaHasta: '',
-      calle: '',
-      altura: '',
-      entreCalle1: '',
-      entreCalle2: '',
-      lotes: '',
-      choferNombre: '',
-      DNIchofer: '',
-      patenteCamion: '',
-      tipoVolquete: '',
-      volqueteNumero: '',
-      destinoFinal: '',
-      solicitanteNombre: ''
-    }
+    defaultValues: defaultFormValues
   });
 
   const onSubmit = (data) => {
@@ -77,22 +56,7 @@ const Form = () => {
   const closeSuccessModal = () => {
     setShowSuccessModal(false);
     // Reseteo formulario cuando se cierra el modal de éxito con fechas por defecto
-    reset({
-      fechaDesde: getTomorrowDate(),
-      fechaHasta: '',
-      calle: '',
-      altura: '',
-      entreCalle1: '',
-      entreCalle2: '',
-      lotes: '',
-      choferNombre: '',
-      DNIchofer: '',
-      patenteCamion: '',
-      tipoVolquete: '',
-      volqueteNumero: '',
-      destinoFinal: '',
-      solicitanteNombre: ''
-    });
+    reset(getResetValues());
     // También limpio los datos guardados
     setFormData(null);
     setLoggedUser('');
