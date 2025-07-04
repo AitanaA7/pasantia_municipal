@@ -98,6 +98,8 @@ const Form = () => {
     setLoggedUser('');
     // Triggeo el reset del componente Location
     setResetTrigger(prev => prev + 1);
+    // Desplazo la página al inicio
+    window.scrollTo(0, 0);
   };
 
 return (
